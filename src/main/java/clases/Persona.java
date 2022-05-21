@@ -6,12 +6,11 @@ public class Persona extends ElementoConNombre{
 	private String nacionalidad;
 	private byte valoracion;
 	private int precio;
-	public Persona(String nombre, String apellidos, String nacionalidad, byte valoracion, int precio) {
+	public Persona(String nombre, String apellidos, String nacionalidad, int precio) {
 		super(nombre);
 		this.setNombre(nombre);
 		this.setApellidos(apellidos);
 		this.setNacionalidad(nacionalidad);
-		this.setValoracion(valoracion);
 		this.setPrecio(precio);
 	}
 	public String getApellidos() {
@@ -30,7 +29,11 @@ public class Persona extends ElementoConNombre{
 		return valoracion;
 	}
 	public void setValoracion(byte valoracion) {
-		this.valoracion = valoracion;
+		if(valoracion>99) {
+			this.valoracion=99;
+		}else {
+			this.valoracion = valoracion;
+		}
 	}
 	public int getPrecio() {
 		return precio;
@@ -39,6 +42,9 @@ public class Persona extends ElementoConNombre{
 		this.precio = precio;
 	}
 	
+	public byte valoracionObtenida(byte e1,byte e2,byte e3,byte e4) {	
+		return (byte)((short)(e1+e2+e3+e4)/4);
+	}
 	
 	
 	

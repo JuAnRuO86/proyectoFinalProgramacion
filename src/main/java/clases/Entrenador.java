@@ -22,7 +22,7 @@ public class Entrenador {
 	}
 	public void setFormacion(byte[] formacion) throws limiteJugadoresException {
 		if(formacion.length!=4) {
-			throw new limiteJugadoresException("Nº Jugadores en el campo incorrecto");
+			throw new limiteJugadoresException("Nº jugadores máximo en el campo sobrepasado");
 		}else {
 			this.formacion = formacion;	
 		}

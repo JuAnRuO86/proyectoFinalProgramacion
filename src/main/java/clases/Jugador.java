@@ -4,11 +4,11 @@ import enums.Posicion;
 
 public class Jugador extends Persona{
 
-	private Posicion posicion;
+	protected Posicion posicion;
 
-	public Jugador(String nombre, String apellidos, String nacionalidad, byte valoracion, int precio,Posicion posicion) {
+	public Jugador(String nombre, String apellidos, String nacionalidad, int precio,Posicion posicion) {
 		
-		super(nombre, apellidos, nacionalidad, valoracion, precio);
+		super(nombre, apellidos, nacionalidad, precio);
 		this.setPosicion(posicion);
 	}
 
