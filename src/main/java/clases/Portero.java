@@ -9,12 +9,14 @@ public class Portero extends Jugador{
 	private byte reflejos;
 	private byte posicionamiento;
 	
-	public Portero(String nombre, String apellidos, String nacionalidad, byte valoracion, int precio, byte estirada, byte parada, byte reflejos, byte posicionamiento) {
-		super(nombre, apellidos, nacionalidad, valoracion, precio, Posicion.PORTERO);
+	public Portero(String nombre, String apellidos, String nacionalidad) {
+		super(nombre, apellidos, nacionalidad, Posicion.PORTERO);
 		this.setEstirada(estirada);
 		this.setParada(parada);
 		this.setReflejos(reflejos);
 		this.setPosicionamiento(posicionamiento);
+		super.setValoracion(valoracionObtenida(estirada,parada,reflejos,posicionamiento));
+		super.setPrecio(precioJugador(super.getValoracion()));
 	}
 
 	public byte getEstirada() {
@@ -22,7 +24,7 @@ public class Portero extends Jugador{
 	}
 
 	public void setEstirada(byte estirada) {
-		this.estirada = estirada;
+		this.estirada = ponerEstadistica((byte)50,(byte)99);
 	}
 
 	public byte getParada() {
@@ -30,7 +32,7 @@ public class Portero extends Jugador{
 	}
 
 	public void setParada(byte parada) {
-		this.parada = parada;
+		this.parada = ponerEstadistica((byte)50,(byte)99);
 	}
 
 	public byte getReflejos() {
@@ -38,7 +40,7 @@ public class Portero extends Jugador{
 	}
 
 	public void setReflejos(byte reflejos) {
-		this.reflejos = reflejos;
+		this.reflejos = ponerEstadistica((byte)50,(byte)99);
 	}
 
 	public byte getPosicionamiento() {
@@ -46,9 +48,17 @@ public class Portero extends Jugador{
 	}
 
 	public void setPosicionamiento(byte posicionamiento) {
-		this.posicionamiento = posicionamiento;
+		this.posicionamiento = ponerEstadistica((byte)50,(byte)99);
 	}
 	
 	
+	public byte valoracionObtenida(byte estirada,byte parada,byte reflejos,byte posicionamiento) {
+		return (byte)((estirada+parada+reflejos+posicionamiento)/3.4f);
+	}
 	
+	@Override
+	public String toString() {
+		return this.getNombre()+" "+this.getApellidos()+" *"+super.getValoracion()+"* "+"(Precio -> "+super.getPrecio()+"€)"+"\n[estirada=" + estirada + " parada=" + parada + "]\n[reflejos=" + reflejos + " posicionamiento=" + posicionamiento
+				+ "]";
+	}
 }

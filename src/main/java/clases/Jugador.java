@@ -1,5 +1,7 @@
 package clases;
 
+import java.util.Random;
+
 import enums.Posicion;
 
 public class Jugador extends Persona{
@@ -18,6 +20,10 @@ public class Jugador extends Persona{
 
 	public void setPosicion(Posicion posicion) {
 		this.posicion = posicion;
+	}
+	public byte ponerEstadistica(byte min,byte max) {
+		Random r=new Random();
+		return (byte)(r.nextInt(max+1-min)+min);
 	}
 	
 }

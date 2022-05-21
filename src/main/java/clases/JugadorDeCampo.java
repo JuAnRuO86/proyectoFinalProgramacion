@@ -1,7 +1,5 @@
 package clases;
 
-import java.util.Random;
-
 import enums.Posicion;
 
 public class JugadorDeCampo extends Jugador {
@@ -14,10 +12,10 @@ public class JugadorDeCampo extends Jugador {
 	public JugadorDeCampo(String nombre, String apellidos, String nacionalidad, Posicion posicion) {
 		
 		super(nombre, apellidos, nacionalidad, posicion);
-		this.setRitmo();
-		this.setTiro();
-		this.setDefensa();
-		this.setFisico();
+		this.setRitmo(ritmo);
+		this.setTiro(tiro);
+		this.setDefensa(defensa);
+		this.setFisico(fisico);
 		this.setPosicion(posicion);
 		super.setValoracion(valoracionObtenida(ritmo,tiro,defensa,fisico));
 		super.setPrecio(precioJugador(super.getValoracion()));
@@ -27,7 +25,7 @@ public class JugadorDeCampo extends Jugador {
 		return ritmo;
 	}
 
-	public void setRitmo() {
+	public void setRitmo(byte ritmo) {
 		switch (posicion){
 		case DELANTERO:
 			this.ritmo = ponerEstadistica((byte)65,(byte)99);
@@ -38,6 +36,8 @@ public class JugadorDeCampo extends Jugador {
 		case DEFENSA:
 			this.ritmo = ponerEstadistica((byte)30,(byte)90);
 			break;
+		default:
+			break;
 		}
 	}
 
@@ -45,7 +45,7 @@ public class JugadorDeCampo extends Jugador {
 		return tiro;
 	}
 
-	public void setTiro() {
+	public void setTiro(byte tiro) {
 		switch (posicion){
 		case DELANTERO:
 			this.tiro = ponerEstadistica((byte)70,(byte)99);
@@ -56,6 +56,8 @@ public class JugadorDeCampo extends Jugador {
 		case DEFENSA:
 			this.tiro = ponerEstadistica((byte)30,(byte)70);
 			break;
+		default:
+			break;
 		}
 	}
 
@@ -63,7 +65,7 @@ public class JugadorDeCampo extends Jugador {
 		return defensa;
 	}
 
-	public void setDefensa() {
+	public void setDefensa(byte defensa) {
 		switch (posicion){
 		case DELANTERO:
 			this.defensa = ponerEstadistica((byte)20,(byte)60);
@@ -74,6 +76,8 @@ public class JugadorDeCampo extends Jugador {
 		case DEFENSA:
 			this.defensa = ponerEstadistica((byte)70,(byte)99);
 			break;
+		default:
+			break;
 		}
 	}
 
@@ -81,7 +85,7 @@ public class JugadorDeCampo extends Jugador {
 		return fisico;
 	}
 
-	public void setFisico() {
+	public void setFisico(byte fisico) {
 		switch (posicion){
 		case DELANTERO:
 			this.fisico = ponerEstadistica((byte)60,(byte)85);
@@ -92,22 +96,21 @@ public class JugadorDeCampo extends Jugador {
 		case DEFENSA:
 			this.fisico = ponerEstadistica((byte)70,(byte)99);
 			break;
+		default:
+			break;
 		}
 	}
 	
-	public byte ponerEstadistica(byte min,byte max) {
-		Random r=new Random();
-		return (byte)(r.nextInt(max+1-min)+min);
-	}
+	
 	
 	public byte valoracionObtenida(byte ritmo,byte tiro,byte defensa,byte fisico) {
-		return (byte)((short)(ritmo+tiro+defensa+fisico)/3.4f);
+		return (byte)((ritmo+tiro+defensa+fisico)/3.4f);
 	}
 
 	
 	@Override
 	public String toString() {
-		return this.getNombre()+" "+this.getApellidos()+" *"+valoracionObtenida(ritmo, tiro, defensa, fisico)+"* "+"(Precio -> "+super.getPrecio()+"€)"+"\n[ritmo=" + ritmo + " tiro=" + tiro + "]\n[defensa=" + defensa + " fisico=" + fisico
+		return this.getNombre()+" "+this.getApellidos()+" *"+super.getValoracion()+"* "+"(Precio -> "+super.getPrecio()+"€)"+"\n[ritmo=" + ritmo + " tiro=" + tiro + "]\n[defensa=" + defensa + " fisico=" + fisico
 				+ "]";
 	}
 
