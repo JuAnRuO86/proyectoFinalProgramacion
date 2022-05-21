@@ -9,14 +9,16 @@ public class Principal {
 
 	public static void main(String[] args) {
 		
-		JugadorDeCampo juan=new JugadorDeCampo("Juan","Ruiz Ocaña","Español",(int)2000,Posicion.CENTROCAMPISTA);
+		 
+			JugadorDeCampo juan = new JugadorDeCampo("Juan","Ruiz Ocaña","Español",Posicion.CENTROCAMPISTA);
+			System.out.println(juan.getValoracion());
+			System.out.println(juan.getPrecio());
+			System.out.println(juan);
+		
 
-		System.out.println(juan.getValoracion());
-		System.out.println(juan);
 		
-		Random r=new Random();
 		
-		System.out.println(r.nextInt(5+1-3)+3);
+
 		
 	}
 

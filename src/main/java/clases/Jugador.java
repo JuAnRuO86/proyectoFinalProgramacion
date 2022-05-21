@@ -6,9 +6,9 @@ public class Jugador extends Persona{
 
 	protected Posicion posicion;
 
-	public Jugador(String nombre, String apellidos, String nacionalidad, int precio,Posicion posicion) {
+	public Jugador(String nombre, String apellidos, String nacionalidad,Posicion posicion) {
 		
-		super(nombre, apellidos, nacionalidad, precio);
+		super(nombre, apellidos, nacionalidad);
 		this.setPosicion(posicion);
 	}
 

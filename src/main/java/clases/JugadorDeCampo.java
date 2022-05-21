@@ -11,15 +11,16 @@ public class JugadorDeCampo extends Jugador {
 	private byte defensa;
 	private byte fisico;
 	
-	public JugadorDeCampo(String nombre, String apellidos, String nacionalidad, int precio, Posicion posicion) {
+	public JugadorDeCampo(String nombre, String apellidos, String nacionalidad, Posicion posicion) {
 		
-		super(nombre, apellidos, nacionalidad, precio, posicion);
+		super(nombre, apellidos, nacionalidad, posicion);
 		this.setRitmo();
 		this.setTiro();
 		this.setDefensa();
 		this.setFisico();
 		this.setPosicion(posicion);
 		super.setValoracion(valoracionObtenida(ritmo,tiro,defensa,fisico));
+		super.setPrecio(precioJugador(super.getValoracion()));
 	}
 
 	public byte getRitmo() {
