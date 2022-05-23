@@ -18,7 +18,7 @@ public class JugadorDeCampo extends Jugador {
 		this.setFisico(fisico);
 		this.setPosicion(posicion);
 		super.setValoracion(valoracionObtenida(ritmo,tiro,defensa,fisico));
-		super.setPrecio(precioJugador(super.getValoracion()));
+		super.setPrecio(precioPersona(super.getValoracion()));
 	}
 
 	public byte getRitmo() {
@@ -110,7 +110,7 @@ public class JugadorDeCampo extends Jugador {
 	
 	@Override
 	public String toString() {
-		return this.getNombre()+" "+this.getApellidos()+" *"+super.getValoracion()+"* "+"(Precio -> "+super.getPrecio()+"€)"+"\n[ritmo=" + ritmo + " tiro=" + tiro + "]\n[defensa=" + defensa + " fisico=" + fisico
+		return getNombre()+" "+getApellidos()+" *"+super.getValoracion()+"* "+"(Precio -> "+super.getPrecio()+"€)"+"\n[ritmo=" + ritmo + " tiro=" + tiro + "]\n[defensa=" + defensa + " fisico=" + fisico
 				+ "]";
 	}
 

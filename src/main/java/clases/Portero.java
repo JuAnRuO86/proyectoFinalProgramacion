@@ -16,7 +16,7 @@ public class Portero extends Jugador{
 		this.setReflejos(reflejos);
 		this.setPosicionamiento(posicionamiento);
 		super.setValoracion(valoracionObtenida(estirada,parada,reflejos,posicionamiento));
-		super.setPrecio(precioJugador(super.getValoracion()));
+		super.setPrecio(precioPersona(super.getValoracion()));
 	}
 
 	public byte getEstirada() {
