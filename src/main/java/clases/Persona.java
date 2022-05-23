@@ -85,7 +85,7 @@ public class Persona extends ElementoConNombre{
 	
 	public static String apellidosAleatorios() {
 		
-	String[] apellidosPosible = {"García","Rodríguez","González","Fernández","López","Martínez","Sánchez","Pérez","Gómez","Martín","Smith","Jones","Taylor","Brown","Williams","Wilson","Johnson","Davies","Robinson","Wright","Thompson","Evans","Walker","White","Roberts","Green","Hall","Thomas","Clark","Jackson","Wood","Harris","Edwards","Turner","Martin","Cooper","Hill","Ward","Hughes","Moore","King","Lee","Da Silva","Dos Santos","Pereira","Alves","Ferreira","Rodrigues","Silva","De Oliveira","De Souza","Gomes","Barbosa","Vieira","Fernandes","Dias","Ronaldo","Nunes","Martin","Bernard","Robert","Richard","Durand","Dubois","Moreau","Messi","Alarcón","Alaba","Courtuois","Mendy","Carvajal","Kroos","Modric","Benzema"};
+	String[] apellidosPosible = {"García","Rodríguez","González","Fernández","López","Martínez","Sánchez","Pérez","Gómez","Martín","Smith","Jones","Taylor","Brown","Williams","Wilson","Johnson","Davies","Robinson","Wright","Thompson","Evans","Walker","White","Roberts","Green","Hall","Thomas","Clark","Jackson","Wood","Harris","Edwards","Turner","Martin","Cooper","Hill","Ward","Hughes","Moore","King","Lee","Da Silva","Dos Santos","Pereira","Alves","Ferreira","Rodrigues","Silva","De Oliveira","De Souza","Gomes","Barbosa","Vieira","Fernandes","Dias","Ronaldo","Nunes","Martin","Bernard","Robert","Richard","Durand","Dubois","Moreau","Alarcón"};
 		
 		Random aleatorio = new Random();
 		byte pos=(byte) (aleatorio.nextInt(apellidosPosible.length));
@@ -110,7 +110,13 @@ public class Persona extends ElementoConNombre{
 		return nombre;
 	}
 	
-
+	public static String generarNacionalidades() {
+		String[] nacionalidades= {"España","Francia","Italia","Alemania","Portugal","Polonia","Bélgica","Austria","Brasil","Argentina","Colombia","Venezuela","Reino Unido","Egipto","Bulgaria","Camerún","Chile","Corea Del Sur","Croacia","Dinamarca","Escocia","Estados Unidos","Irlanda","México","Países Bajos","Ucrania"};
+		Random r = new Random();
+		String nacionalidad;
+		nacionalidad=nacionalidades[r.nextInt(nacionalidades.length)];
+		return nacionalidad;
+	}
 	
 	
 	

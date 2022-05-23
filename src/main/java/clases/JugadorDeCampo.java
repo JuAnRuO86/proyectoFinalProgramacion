@@ -28,13 +28,13 @@ public class JugadorDeCampo extends Jugador {
 	public void setRitmo(byte ritmo) {
 		switch (posicion){
 		case DELANTERO:
-			this.ritmo = ponerEstadistica((byte)65,(byte)99);
+			this.ritmo = ponerEstadistica((byte)65,(byte)94);
 			break;
 		case CENTROCAMPISTA:
-			this.ritmo = ponerEstadistica((byte)60,(byte)99);
+			this.ritmo = ponerEstadistica((byte)60,(byte)94);
 			break;
 		case DEFENSA:
-			this.ritmo = ponerEstadistica((byte)30,(byte)90);
+			this.ritmo = ponerEstadistica((byte)30,(byte)84);
 			break;
 		default:
 			break;
@@ -48,10 +48,10 @@ public class JugadorDeCampo extends Jugador {
 	public void setTiro(byte tiro) {
 		switch (posicion){
 		case DELANTERO:
-			this.tiro = ponerEstadistica((byte)70,(byte)99);
+			this.tiro = ponerEstadistica((byte)70,(byte)94);
 			break;
 		case CENTROCAMPISTA:
-			this.tiro = ponerEstadistica((byte)55,(byte)95);
+			this.tiro = ponerEstadistica((byte)55,(byte)90);
 			break;
 		case DEFENSA:
 			this.tiro = ponerEstadistica((byte)30,(byte)70);
@@ -68,13 +68,13 @@ public class JugadorDeCampo extends Jugador {
 	public void setDefensa(byte defensa) {
 		switch (posicion){
 		case DELANTERO:
-			this.defensa = ponerEstadistica((byte)20,(byte)60);
+			this.defensa = ponerEstadistica((byte)20,(byte)55);
 			break;
 		case CENTROCAMPISTA:
-			this.defensa = ponerEstadistica((byte)40,(byte)90);
+			this.defensa = ponerEstadistica((byte)40,(byte)88);
 			break;
 		case DEFENSA:
-			this.defensa = ponerEstadistica((byte)70,(byte)99);
+			this.defensa = ponerEstadistica((byte)70,(byte)94);
 			break;
 		default:
 			break;
@@ -94,7 +94,7 @@ public class JugadorDeCampo extends Jugador {
 			this.fisico = ponerEstadistica((byte)50,(byte)85);
 			break;
 		case DEFENSA:
-			this.fisico = ponerEstadistica((byte)70,(byte)99);
+			this.fisico = ponerEstadistica((byte)70,(byte)94);
 			break;
 		default:
 			break;
@@ -110,8 +110,8 @@ public class JugadorDeCampo extends Jugador {
 	
 	@Override
 	public String toString() {
-		return getNombre()+" "+getApellidos()+" *"+super.getValoracion()+"* "+"(Precio -> "+super.getPrecio()+"€)"+"\n[ritmo=" + ritmo + " tiro=" + tiro + "]\n[defensa=" + defensa + " fisico=" + fisico
-				+ "]";
+		return "<"+this.posicion+"> "+getNombre()+" "+getApellidos()+" ("+super.getNacionalidad()+") *"+super.getValoracion()+"* "+"(Precio -> "+super.getPrecio()+"€)"+"\n[ritmo=" + ritmo + " tiro=" + tiro + "]\n[defensa=" + defensa + " fisico=" + fisico
+				+ "]\n\n";
 	}
 
 	

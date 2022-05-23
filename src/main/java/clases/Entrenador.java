@@ -29,7 +29,7 @@ public class Entrenador extends Persona{
 	
 	public byte ponerNivelTactico() {
 		Random r=new Random();
-		return (byte)r.nextInt(5);
+		return (byte)(r.nextInt(5)+1);
 	}
 	
 	public byte[] creadorFormacion() {
@@ -52,18 +52,13 @@ public class Entrenador extends Persona{
 	}
 	
 	public int precioPersona(byte nivelTactico)  {
-		Random r=new Random();
-		if(nivelTactico==0) {
-			return 0;
-		}else{
-			return nivelTactico*100000;
-		}
+		return nivelTactico*100000;	
 	}
 	
 	
 	@Override
 	public String toString() {
-		return getNombre()+" "+getApellidos()+" *"+this.getNivelTactico()+"* "+"(Precio -> "+super.getPrecio()+"€)"+"\n[nivelTactico=" + nivelTactico + ", formacion=" + Arrays.toString(formacion) + "]";
+		return "<ENTRENADOR> "+getNombre()+" "+getApellidos()+" ("+super.getNacionalidad()+") *"+this.getNivelTactico()+"* "+"(Precio -> "+super.getPrecio()+"€)"+" Formacion=" + Arrays.toString(formacion) + "]";
 	}
 	
 	

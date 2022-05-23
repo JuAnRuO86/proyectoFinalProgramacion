@@ -58,7 +58,7 @@ public class Portero extends Jugador{
 	
 	@Override
 	public String toString() {
-		return this.getNombre()+" "+this.getApellidos()+" *"+super.getValoracion()+"* "+"(Precio -> "+super.getPrecio()+"€)"+"\n[estirada=" + estirada + " parada=" + parada + "]\n[reflejos=" + reflejos + " posicionamiento=" + posicionamiento
+		return "<"+this.posicion+"> "+this.getNombre()+" "+this.getApellidos()+" ("+super.getNacionalidad()+") *"+super.getValoracion()+"* "+"(Precio -> "+super.getPrecio()+"€)"+"\n[estirada=" + estirada + " parada=" + parada + "]\n[reflejos=" + reflejos + " posicionamiento=" + posicionamiento
 				+ "]";
 	}
 }
