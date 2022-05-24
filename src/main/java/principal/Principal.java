@@ -7,6 +7,7 @@ import clases.Entrenador;
 import clases.Equipo;
 import clases.Jugador;
 import clases.JugadorDeCampo;
+import clases.Partido;
 import clases.Persona;
 import clases.Portero;
 import enums.Posicion;
@@ -31,6 +32,7 @@ public class Principal {
 		
 
 			Entrenador ancelotti=new Entrenador(Persona.generarNombresAleatorios(),Persona.apellidosAleatorios(),Persona.generarNacionalidades());
+			Entrenador klopp=new Entrenador(Persona.generarNombresAleatorios(),Persona.apellidosAleatorios(),Persona.generarNacionalidades());
 			//System.out.println(ancelotti);
 						
 //			ArrayList<Jugador> jugadores= new ArrayList<Jugador>();
@@ -40,11 +42,11 @@ public class Principal {
 //			jugadores.add(j4);
 //			jugadores.add(pt);
 
-			Equipo realMadrid=new Equipo("Real Madrid",5000000f,Equipo.generarEquipo(ancelotti),ancelotti);
+			Equipo realMadrid=new Equipo("Real Madrid",500000f,Equipo.generarEquipo(ancelotti),ancelotti);
 			System.out.println(realMadrid);
+			Equipo liverpool=new Equipo("Liverpool",750000f,Equipo.generarEquipo(klopp),klopp);
 			
-			
-			
+			Partido finalUCL=new Partido(realMadrid,liverpool,(byte)2,(byte)1);
 			
 		
 	}
