@@ -2,6 +2,7 @@ package clases;
 
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Random;
 
 import enums.Posicion;
 import utils.ConexionBD;
@@ -13,28 +14,40 @@ public class JugadorDeCampo extends Jugador {
 	private byte defensa;
 	private byte fisico;
 	
-	public JugadorDeCampo(String nombre, String apellidos, String nacionalidad,byte valoracion,int precio,Posicion posicion) throws SQLException {
+	public JugadorDeCampo(String nombre, String apellidos, String nacionalidad) throws SQLException {
 		super();
 		
-		Statement smt = ConexionBD.conectar();
-		if (smt.executeUpdate(
-				"insert into persona (nombre,apellidos,nacionalidad,valoracion,precio,especialidad,posicion) values('" + nombre + "','" + apellidos + "','" + nacionalidad + "'," + valoracionObtenida(ritmo,tiro,defensa,fisico) +"," +precio+",'jugador',"+posicion+")") > 0) {
-			
-			this.setNombre(nombre);
-			this.setApellidos(apellidos);
-		}
-	}
-	public JugadorDeCampo(String nombre, String apellidos, String nacionalidad, Posicion posicion) {
-		
-		super(nombre, apellidos, nacionalidad, posicion);
+		//Esto puede ser motivo de error
+		this.setPosicion(posicionAleatoriaJugador());
 		this.setRitmo(ritmo);
 		this.setTiro(tiro);
 		this.setDefensa(defensa);
 		this.setFisico(fisico);
-		this.setPosicion(posicion);
-		super.setValoracion(valoracionObtenida(ritmo,tiro,defensa,fisico));
-		super.setPrecio(precioPersona(super.getValoracion()));
+		this.setValoracion(valoracionObtenida(ritmo,tiro,defensa,fisico));
+		this.setPrecio(precioPersona(valoracion));
+
+		Statement smt = ConexionBD.conectar();
+		if (smt.executeUpdate(
+				"insert into persona (nombre,apellidos,nacionalidad,valoracion,precio,especialidad,posicion) values('" + nombre + "','" + apellidos + "','" + nacionalidad + "'," + valoracion +"," +precio+",'jugador','"+posicion+"')") > 0) {
+			
+			this.setNombre(nombre);
+			this.setApellidos(apellidos);
+			this.setNacionalidad(nacionalidad);
+			
+		}else {
+			
+			ConexionBD.desconectar();
+			throw new SQLException("No se ha podido insertar el jugador");
+		}
+		ConexionBD.desconectar();
 	}
+//	public JugadorDeCampo(String nombre, String apellidos, String nacionalidad, Posicion posicion) {
+//		
+//		super(nombre, apellidos, nacionalidad, posicion);
+//		
+//		super.setValoracion(valoracionObtenida(ritmo,tiro,defensa,fisico));
+//		super.setPrecio(precioPersona(super.getValoracion()));
+//	}
 
 	public byte getRitmo() {
 		return ritmo;
@@ -118,8 +131,22 @@ public class JugadorDeCampo extends Jugador {
 	
 	//Hay que hacer esta funcion e implementarla en el constructor
 	public Posicion posicionAleatoriaJugador() {
+		Random r=new Random();
+		Posicion pos = null;
+		byte eleccion=(byte)(r.nextInt(3));
+		switch(eleccion) {
+		case 0:
+			pos=Posicion.DEFENSA;
+			break;
+		case 1:
+			pos=Posicion.CENTROCAMPISTA;
+			break;
+		case 2:
+			pos=Posicion.DELANTERO;
+			break;
+		}
 		
-		return Posicion.CENTROCAMPISTA;
+		return pos;
 	}
 	
 	public byte valoracionObtenida(byte ritmo,byte tiro,byte defensa,byte fisico) {

@@ -8,12 +8,16 @@ public class Entrenador extends Persona{
 
 	private byte nivelTactico;
 	private byte[] formacion;
-	public Entrenador(String nombre, String apellidos, String nacionalidad) {
-		super(nombre, apellidos, nacionalidad);
-		this.setNivelTactico(ponerNivelTactico());
-		this.setFormacion(creadorFormacion());
-		super.setPrecio(precioPersona(this.getNivelTactico()));
+	public Entrenador() {
+		super();
+		
 	}
+//	public Entrenador(String nombre, String apellidos, String nacionalidad) {
+//		super(nombre, apellidos, nacionalidad);
+//		this.setNivelTactico(ponerNivelTactico());
+//		this.setFormacion(creadorFormacion());
+//		super.setPrecio(precioPersona(this.getNivelTactico()));
+//	}
 	public byte getNivelTactico() {
 		return nivelTactico;
 	}

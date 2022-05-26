@@ -12,11 +12,11 @@ public class Jugador extends Persona{
 		super();
 	}
 	
-	public Jugador(String nombre, String apellidos, String nacionalidad,Posicion posicion) {
-		
-		super(nombre, apellidos, nacionalidad);
-		this.setPosicion(posicion);
-	}
+//	public Jugador(String nombre, String apellidos, String nacionalidad,Posicion posicion) {
+//		
+//		super(nombre, apellidos, nacionalidad);
+//		this.setPosicion(posicion);
+//	}
 
 	public Posicion getPosicion() {
 		return posicion;

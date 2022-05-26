@@ -10,22 +10,22 @@ public class Persona extends ElementoConNombre{
 
 	private String apellidos;
 	private String nacionalidad;
-	private byte valoracion;
-	private int precio;
+	protected byte valoracion;
+	protected int precio;
 	
 	public Persona() {
 		super();
 	}
 	
-	public Persona(String nombre, String apellidos, String nacionalidad) {
-		super(nombre);
-
-		
-
-		this.setNombre(nombre);
-		this.setApellidos(apellidos);
-		this.setNacionalidad(nacionalidad);
-	}
+//	public Persona(String nombre, String apellidos, String nacionalidad) {
+//		super(nombre);
+//
+//		
+//
+//		this.setNombre(nombre);
+//		this.setApellidos(apellidos);
+//		this.setNacionalidad(nacionalidad);
+//	}
 	public String getApellidos() {
 		return apellidos;
 	}

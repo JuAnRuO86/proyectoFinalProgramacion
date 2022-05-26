@@ -11,14 +11,18 @@ public class Equipo extends ElementoConNombre{
 	private ArrayList<Jugador> jugadores;
 	private Entrenador entrenador;
 	
-	public Equipo(String nombre, float presupuesto,ArrayList<Jugador> jugadores,Entrenador entrenador) {
+	public Equipo() {
+		super();
 		
-		super(nombre);
-		this.setPresupuesto(presupuesto);
-		this.setJugadores(jugadores);
-		this.setEntrenador(entrenador);
-		this.setValoracion(valoracionObtenida(jugadores,entrenador));
 	}
+//	public Equipo(String nombre, float presupuesto,ArrayList<Jugador> jugadores,Entrenador entrenador) {
+//		
+//		super(nombre);
+//		this.setPresupuesto(presupuesto);
+//		this.setJugadores(jugadores);
+//		this.setEntrenador(entrenador);
+//		this.setValoracion(valoracionObtenida(jugadores,entrenador));
+//	}
 	
 	public float getPresupuesto() {
 		return presupuesto;
@@ -53,28 +57,28 @@ public class Equipo extends ElementoConNombre{
 		return (short)(valTotal+entrenador.getNivelTactico());
 	}
 	
-	public static ArrayList<Jugador> generarEquipo(Entrenador entrenador){
-		ArrayList<Jugador> equipo=new ArrayList<Jugador>();
-		byte[] formacion=entrenador.getFormacion();
-		
-		for(byte i=0;i<entrenador.getFormacion().length;i++) {
-			for(byte j=0;j<formacion[i];j++) {
-				switch(i) {
-				case 0:
-					equipo.add(new JugadorDeCampo(Persona.generarNombresAleatorios(),Persona.apellidosAleatorios(),Persona.generarNacionalidades(),Posicion.DEFENSA));
-					break;
-				case 1:
-					equipo.add(new JugadorDeCampo(Persona.generarNombresAleatorios(),Persona.apellidosAleatorios(),Persona.generarNacionalidades(),Posicion.CENTROCAMPISTA));
-					break;
-				case 2:
-					equipo.add(new JugadorDeCampo(Persona.generarNombresAleatorios(),Persona.apellidosAleatorios(),Persona.generarNacionalidades(),Posicion.DELANTERO));
-					break;
-				}
-			}
-		}
-		equipo.add(new Portero(Persona.generarNombresAleatorios(),Persona.apellidosAleatorios(),Persona.generarNacionalidades()));
-		return equipo;
-	}
+//	public static ArrayList<Jugador> generarEquipo(Entrenador entrenador){
+//		ArrayList<Jugador> equipo=new ArrayList<Jugador>();
+//		byte[] formacion=entrenador.getFormacion();
+//		
+//		for(byte i=0;i<entrenador.getFormacion().length;i++) {
+//			for(byte j=0;j<formacion[i];j++) {
+//				switch(i) {
+//				case 0:
+//					equipo.add(new JugadorDeCampo(Persona.generarNombresAleatorios(),Persona.apellidosAleatorios(),Persona.generarNacionalidades(),Posicion.DEFENSA));
+//					break;
+//				case 1:
+//					equipo.add(new JugadorDeCampo(Persona.generarNombresAleatorios(),Persona.apellidosAleatorios(),Persona.generarNacionalidades(),Posicion.CENTROCAMPISTA));
+//					break;
+//				case 2:
+//					equipo.add(new JugadorDeCampo(Persona.generarNombresAleatorios(),Persona.apellidosAleatorios(),Persona.generarNacionalidades(),Posicion.DELANTERO));
+//					break;
+//				}
+//			}
+//		}
+//		equipo.add(new Portero(Persona.generarNombresAleatorios(),Persona.apellidosAleatorios(),Persona.generarNacionalidades()));
+//		return equipo;
+//	}
 	
 	@Override
 	public String toString() {

@@ -1,5 +1,6 @@
 package principal;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -32,8 +33,8 @@ public class Principal {
 //			System.out.println(pt);
 		
 
-			Entrenador ancelotti=new Entrenador(Persona.generarNombresAleatorios(),Persona.apellidosAleatorios(),Persona.generarNacionalidades());
-			Entrenador klopp=new Entrenador(Persona.generarNombresAleatorios(),Persona.apellidosAleatorios(),Persona.generarNacionalidades());
+//			Entrenador ancelotti=new Entrenador(Persona.generarNombresAleatorios(),Persona.apellidosAleatorios(),Persona.generarNacionalidades());
+//			Entrenador klopp=new Entrenador(Persona.generarNombresAleatorios(),Persona.apellidosAleatorios(),Persona.generarNacionalidades());
 			//System.out.println(ancelotti);
 						
 //			ArrayList<Jugador> jugadores= new ArrayList<Jugador>();
@@ -43,14 +44,24 @@ public class Principal {
 //			jugadores.add(j4);
 //			jugadores.add(pt);
 
-			Equipo realMadrid=new Equipo("Real Madrid",500000f,Equipo.generarEquipo(ancelotti),ancelotti);
+//			Equipo realMadrid=new Equipo("Real Madrid",500000f,Equipo.generarEquipo(ancelotti),ancelotti);
 //			System.out.println(realMadrid);
-			Equipo liverpool=new Equipo("Liverpool",750000f,Equipo.generarEquipo(klopp),klopp);
+//			Equipo liverpool=new Equipo("Liverpool",750000f,Equipo.generarEquipo(klopp),klopp);
 			
-			Partido finalUCL=new Partido(realMadrid,liverpool);
-			System.out.println(finalUCL);
+//			Partido finalUCL=new Partido(realMadrid,liverpool);
+//			System.out.println(finalUCL);
 			
-			Ventana ventana=new Ventana();
+		
+		try {
+			JugadorDeCampo j1 = new JugadorDeCampo(Persona.generarNombresAleatorios(),Persona.apellidosAleatorios(),Persona.generarNacionalidades());
+			System.out.println(j1);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		
+//			Ventana ventana=new Ventana();
 
 		
 	}

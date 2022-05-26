@@ -31,7 +31,7 @@ public class Ventana extends JFrame{
 		
 		//this.setExtendedState(JFrame.MAXIMIZED_BOTH);estas dos lineas es para ponerlo en pantalla
 		//this.setUndecorated(true); completa
-		
+		this.setResizable(false);// No podrás cambiar el tamaño mas de lo determinado
 		this.setContentPane(this.pantallas.get("login"));
 		this.setVisible(true);
 		
