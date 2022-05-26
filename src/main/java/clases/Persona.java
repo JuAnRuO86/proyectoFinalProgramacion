@@ -1,6 +1,9 @@
 package clases;
 
+import java.sql.Statement;
 import java.util.Random;
+
+import utils.ConexionBD;
 
 
 public class Persona extends ElementoConNombre{
@@ -9,8 +12,16 @@ public class Persona extends ElementoConNombre{
 	private String nacionalidad;
 	private byte valoracion;
 	private int precio;
+	
+	public Persona() {
+		super();
+	}
+	
 	public Persona(String nombre, String apellidos, String nacionalidad) {
 		super(nombre);
+
+		
+
 		this.setNombre(nombre);
 		this.setApellidos(apellidos);
 		this.setNacionalidad(nacionalidad);

@@ -8,6 +8,10 @@ public class Jugador extends Persona{
 
 	protected Posicion posicion;
 
+	public Jugador() {
+		super();
+	}
+	
 	public Jugador(String nombre, String apellidos, String nacionalidad,Posicion posicion) {
 		
 		super(nombre, apellidos, nacionalidad);

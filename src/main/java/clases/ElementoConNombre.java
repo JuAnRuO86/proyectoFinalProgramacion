@@ -4,6 +4,10 @@ public abstract class ElementoConNombre {
 
 	protected String nombre;
 
+	public ElementoConNombre() {
+		
+	}
+	
 	public ElementoConNombre(String nombre) {
 		super();
 		this.setNombre(nombre);

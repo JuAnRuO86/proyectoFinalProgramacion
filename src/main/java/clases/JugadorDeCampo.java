@@ -1,6 +1,10 @@
 package clases;
 
+import java.sql.SQLException;
+import java.sql.Statement;
+
 import enums.Posicion;
+import utils.ConexionBD;
 
 public class JugadorDeCampo extends Jugador {
 
@@ -9,6 +13,17 @@ public class JugadorDeCampo extends Jugador {
 	private byte defensa;
 	private byte fisico;
 	
+	public JugadorDeCampo(String nombre, String apellidos, String nacionalidad,byte valoracion,int precio,Posicion posicion) throws SQLException {
+		super();
+		
+		Statement smt = ConexionBD.conectar();
+		if (smt.executeUpdate(
+				"insert into persona (nombre,apellidos,nacionalidad,valoracion,precio,especialidad,posicion) values('" + nombre + "','" + apellidos + "','" + nacionalidad + "'," + valoracionObtenida(ritmo,tiro,defensa,fisico) +"," +precio+",'jugador',"+posicion+")") > 0) {
+			
+			this.setNombre(nombre);
+			this.setApellidos(apellidos);
+		}
+	}
 	public JugadorDeCampo(String nombre, String apellidos, String nacionalidad, Posicion posicion) {
 		
 		super(nombre, apellidos, nacionalidad, posicion);
@@ -101,7 +116,11 @@ public class JugadorDeCampo extends Jugador {
 		}
 	}
 	
-	
+	//Hay que hacer esta funcion e implementarla en el constructor
+	public Posicion posicionAleatoriaJugador() {
+		
+		return Posicion.CENTROCAMPISTA;
+	}
 	
 	public byte valoracionObtenida(byte ritmo,byte tiro,byte defensa,byte fisico) {
 		return (byte)((ritmo+tiro+defensa+fisico)/3.4f);
