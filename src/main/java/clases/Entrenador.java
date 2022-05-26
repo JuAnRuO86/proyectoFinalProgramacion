@@ -1,16 +1,39 @@
 package clases;
 
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Arrays;
 import java.util.Random;
+
+import utils.ConexionBD;
 
 
 public class Entrenador extends Persona{
 
 	private byte nivelTactico;
 	private byte[] formacion;
-	public Entrenador() {
+	
+	public Entrenador(String nombre, String apellidos, String nacionalidad) throws SQLException {
 		super();
 		
+		
+		this.setNivelTactico(ponerNivelTactico());
+		this.setPrecio(precioPersona(nivelTactico));
+
+		Statement smt = ConexionBD.conectar();
+		if (smt.executeUpdate(
+				"insert into persona (nombre,apellidos,nacionalidad,valoracion,precio,posicion) values('" + nombre + "','" + apellidos + "','" + nacionalidad + "'," + nivelTactico +"," +precio+",'ENTRENADOR')") > 0) {
+			
+			this.setNombre(nombre);
+			this.setApellidos(apellidos);
+			this.setNacionalidad(nacionalidad);
+			
+		}else {
+			
+			ConexionBD.desconectar();
+			throw new SQLException("No se ha podido insertar el jugador");
+		}
+		ConexionBD.desconectar();
 	}
 //	public Entrenador(String nombre, String apellidos, String nacionalidad) {
 //		super(nombre, apellidos, nacionalidad);

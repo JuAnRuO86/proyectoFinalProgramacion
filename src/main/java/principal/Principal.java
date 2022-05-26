@@ -33,7 +33,6 @@ public class Principal {
 //			System.out.println(pt);
 		
 
-//			Entrenador ancelotti=new Entrenador(Persona.generarNombresAleatorios(),Persona.apellidosAleatorios(),Persona.generarNacionalidades());
 //			Entrenador klopp=new Entrenador(Persona.generarNombresAleatorios(),Persona.apellidosAleatorios(),Persona.generarNacionalidades());
 			//System.out.println(ancelotti);
 						
@@ -54,7 +53,11 @@ public class Principal {
 		
 		try {
 			JugadorDeCampo j1 = new JugadorDeCampo(Persona.generarNombresAleatorios(),Persona.apellidosAleatorios(),Persona.generarNacionalidades());
+			Portero pt1 = new Portero(Persona.generarNombresAleatorios(),Persona.apellidosAleatorios(),Persona.generarNacionalidades());
+			Entrenador ancelotti=new Entrenador(Persona.generarNombresAleatorios(),Persona.apellidosAleatorios(),Persona.generarNacionalidades());
 			System.out.println(j1);
+			System.out.println(pt1);
+			System.out.println(ancelotti);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

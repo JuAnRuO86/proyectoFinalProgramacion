@@ -28,7 +28,7 @@ public class JugadorDeCampo extends Jugador {
 
 		Statement smt = ConexionBD.conectar();
 		if (smt.executeUpdate(
-				"insert into persona (nombre,apellidos,nacionalidad,valoracion,precio,especialidad,posicion) values('" + nombre + "','" + apellidos + "','" + nacionalidad + "'," + valoracion +"," +precio+",'jugador','"+posicion+"')") > 0) {
+				"insert into persona (nombre,apellidos,nacionalidad,valoracion,precio,posicion) values('" + nombre + "','" + apellidos + "','" + nacionalidad + "'," + valoracion +"," +precio+",'"+posicion+"')") > 0) {
 			
 			this.setNombre(nombre);
 			this.setApellidos(apellidos);

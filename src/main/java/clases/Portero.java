@@ -1,6 +1,10 @@
 package clases;
 
+import java.sql.SQLException;
+import java.sql.Statement;
+
 import enums.Posicion;
+import utils.ConexionBD;
 
 public class Portero extends Jugador{
 
@@ -9,15 +13,43 @@ public class Portero extends Jugador{
 	private byte reflejos;
 	private byte posicionamiento;
 	
-	public Portero(String nombre, String apellidos, String nacionalidad) {
-		super(nombre, apellidos, nacionalidad, Posicion.PORTERO);
+	public Portero(String nombre, String apellidos, String nacionalidad) throws SQLException {
+		super();
+		
+		//Esto puede ser motivo de error
+		this.setPosicion(Posicion.PORTERO);
 		this.setEstirada(estirada);
 		this.setParada(parada);
 		this.setReflejos(reflejos);
 		this.setPosicionamiento(posicionamiento);
-		super.setValoracion(valoracionObtenida(estirada,parada,reflejos,posicionamiento));
-		super.setPrecio(precioPersona(super.getValoracion()));
+		this.setValoracion(valoracionObtenida(estirada,parada,reflejos,posicionamiento));
+		this.setPrecio(precioPersona(valoracion));
+
+		Statement smt = ConexionBD.conectar();
+		if (smt.executeUpdate(
+				"insert into persona (nombre,apellidos,nacionalidad,valoracion,precio,posicion) values('" + nombre + "','" + apellidos + "','" + nacionalidad + "'," + valoracion +"," +precio+",'"+posicion+"')") > 0) {
+			
+			this.setNombre(nombre);
+			this.setApellidos(apellidos);
+			this.setNacionalidad(nacionalidad);
+			
+		}else {
+			
+			ConexionBD.desconectar();
+			throw new SQLException("No se ha podido insertar el jugador");
+		}
+		ConexionBD.desconectar();
 	}
+	
+//	public Portero(String nombre, String apellidos, String nacionalidad) {
+//		super(nombre, apellidos, nacionalidad, Posicion.PORTERO);
+//		this.setEstirada(estirada);
+//		this.setParada(parada);
+//		this.setReflejos(reflejos);
+//		this.setPosicionamiento(posicionamiento);
+//		super.setValoracion(valoracionObtenida(estirada,parada,reflejos,posicionamiento));
+//		super.setPrecio(precioPersona(super.getValoracion()));
+//	}
 
 	public byte getEstirada() {
 		return estirada;
