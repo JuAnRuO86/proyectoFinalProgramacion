@@ -11,6 +11,7 @@ import clases.Partido;
 import clases.Persona;
 import clases.Portero;
 import enums.Posicion;
+import interfacesgraficas.Ventana;
 
 public class Principal {
 
@@ -43,11 +44,14 @@ public class Principal {
 //			jugadores.add(pt);
 
 			Equipo realMadrid=new Equipo("Real Madrid",500000f,Equipo.generarEquipo(ancelotti),ancelotti);
-			System.out.println(realMadrid);
+//			System.out.println(realMadrid);
 			Equipo liverpool=new Equipo("Liverpool",750000f,Equipo.generarEquipo(klopp),klopp);
 			
-			Partido finalUCL=new Partido(realMadrid,liverpool,(byte)2,(byte)1);
+			Partido finalUCL=new Partido(realMadrid,liverpool);
+			System.out.println(finalUCL);
 			
+			Ventana ventana=new Ventana();
+
 		
 	}
 
