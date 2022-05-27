@@ -16,7 +16,7 @@ public class Entrenador extends Persona{
 	public Entrenador(String nombre, String apellidos, String nacionalidad) throws SQLException {
 		super();
 		
-		
+		this.setFormacion(creadorFormacion());
 		this.setNivelTactico(ponerNivelTactico());
 		this.setPrecio(precioPersona(nivelTactico));
 
@@ -31,16 +31,11 @@ public class Entrenador extends Persona{
 		}else {
 			
 			ConexionBD.desconectar();
-			throw new SQLException("No se ha podido insertar el jugador");
+			throw new SQLException("No se ha podido insertar el entrenador");
 		}
 		ConexionBD.desconectar();
 	}
-//	public Entrenador(String nombre, String apellidos, String nacionalidad) {
-//		super(nombre, apellidos, nacionalidad);
-//		this.setNivelTactico(ponerNivelTactico());
-//		this.setFormacion(creadorFormacion());
-//		super.setPrecio(precioPersona(this.getNivelTactico()));
-//	}
+
 	public byte getNivelTactico() {
 		return nivelTactico;
 	}

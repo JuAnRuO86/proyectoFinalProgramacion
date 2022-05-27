@@ -1,5 +1,7 @@
 package clases;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Random;
 
@@ -29,8 +31,8 @@ public class Persona extends ElementoConNombre{
 	public String getApellidos() {
 		return apellidos;
 	}
-	public void setApellidos(String apellidos) {
-		this.apellidos = apellidos;
+	public void setApellidos(String apellidos){
+		this.apellidos=apellidos;
 	}
 	public String getNacionalidad() {
 		return nacionalidad;

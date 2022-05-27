@@ -56,7 +56,7 @@ public class Portero extends Jugador{
 	}
 
 	public void setEstirada(byte estirada) {
-		this.estirada = ponerEstadistica((byte)50,(byte)99);
+		this.estirada = ponerEstadistica((byte)50,(byte)95);
 	}
 
 	public byte getParada() {
@@ -64,7 +64,7 @@ public class Portero extends Jugador{
 	}
 
 	public void setParada(byte parada) {
-		this.parada = ponerEstadistica((byte)50,(byte)99);
+		this.parada = ponerEstadistica((byte)50,(byte)95);
 	}
 
 	public byte getReflejos() {
@@ -72,7 +72,7 @@ public class Portero extends Jugador{
 	}
 
 	public void setReflejos(byte reflejos) {
-		this.reflejos = ponerEstadistica((byte)50,(byte)99);
+		this.reflejos = ponerEstadistica((byte)50,(byte)95);
 	}
 
 	public byte getPosicionamiento() {
@@ -80,7 +80,7 @@ public class Portero extends Jugador{
 	}
 
 	public void setPosicionamiento(byte posicionamiento) {
-		this.posicionamiento = ponerEstadistica((byte)50,(byte)99);
+		this.posicionamiento = ponerEstadistica((byte)50,(byte)95);
 	}
 	
 	

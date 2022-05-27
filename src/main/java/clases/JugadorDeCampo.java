@@ -41,6 +41,32 @@ public class JugadorDeCampo extends Jugador {
 		}
 		ConexionBD.desconectar();
 	}
+	public JugadorDeCampo(String nombre, String apellidos, String nacionalidad,Posicion posicion) throws SQLException {
+		super();
+		
+		this.setPosicion(posicion);
+		this.setRitmo(ritmo);
+		this.setTiro(tiro);
+		this.setDefensa(defensa);
+		this.setFisico(fisico);
+		this.setValoracion(valoracionObtenida(ritmo,tiro,defensa,fisico));
+		this.setPrecio(precioPersona(valoracion));
+
+		Statement smt = ConexionBD.conectar();
+		if (smt.executeUpdate(
+				"insert into persona (nombre,apellidos,nacionalidad,valoracion,precio,posicion) values('" + nombre + "','" + apellidos + "','" + nacionalidad + "'," + valoracion +"," +precio+",'"+posicion+"')") > 0) {
+			
+			this.setNombre(nombre);
+			this.setApellidos(apellidos);
+			this.setNacionalidad(nacionalidad);
+			
+		}else {
+			
+			ConexionBD.desconectar();
+			throw new SQLException("No se ha podido insertar el jugador");
+		}
+		ConexionBD.desconectar();
+	}
 //	public JugadorDeCampo(String nombre, String apellidos, String nacionalidad, Posicion posicion) {
 //		
 //		super(nombre, apellidos, nacionalidad, posicion);
@@ -54,6 +80,7 @@ public class JugadorDeCampo extends Jugador {
 	}
 
 	public void setRitmo(byte ritmo) {
+				
 		switch (posicion){
 		case DELANTERO:
 			this.ritmo = ponerEstadistica((byte)65,(byte)94);

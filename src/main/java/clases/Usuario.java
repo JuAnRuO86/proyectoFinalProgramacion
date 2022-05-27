@@ -73,7 +73,7 @@ public class Usuario extends ElementoConNombre{
 
 
 	public void setApellido1(String apellido1) throws SQLException {
-		;
+		
 		Statement smt = ConexionBD.conectar();
 		if (smt.executeUpdate("update usuario set apellido1='" + apellido1 + "' where email='" + this.email + "'") > 0) {
 			this.apellido1 = apellido1;

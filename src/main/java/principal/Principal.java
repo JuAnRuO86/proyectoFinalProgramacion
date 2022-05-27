@@ -55,16 +55,18 @@ public class Principal {
 			JugadorDeCampo j1 = new JugadorDeCampo(Persona.generarNombresAleatorios(),Persona.apellidosAleatorios(),Persona.generarNacionalidades());
 			Portero pt1 = new Portero(Persona.generarNombresAleatorios(),Persona.apellidosAleatorios(),Persona.generarNacionalidades());
 			Entrenador ancelotti=new Entrenador(Persona.generarNombresAleatorios(),Persona.apellidosAleatorios(),Persona.generarNacionalidades());
+			Equipo realMadrid=new Equipo("Real Madrid", 500000,ancelotti);
 			System.out.println(j1);
 			System.out.println(pt1);
 			System.out.println(ancelotti);
+			System.out.println(realMadrid);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
 		
-//			Ventana ventana=new Ventana();
+			Ventana ventana=new Ventana();
 
 		
 	}

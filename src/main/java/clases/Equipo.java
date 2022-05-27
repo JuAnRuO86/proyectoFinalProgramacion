@@ -1,19 +1,38 @@
 package clases;
 
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 import enums.Posicion;
+import utils.ConexionBD;
 
 public class Equipo extends ElementoConNombre{
 
-	private float presupuesto;
+	private int presupuesto;
 	private short valoracion;
 	private ArrayList<Jugador> jugadores;
 	private Entrenador entrenador;
 	
-	public Equipo() {
+	public Equipo(String nombre,int presupuesto,Entrenador entrenador) throws SQLException {
 		super();
 		
+		this.setEntrenador(entrenador);
+		this.setJugadores(generarEquipo(entrenador));
+		this.setValoracion(valoracionObtenida(jugadores,entrenador));
+		Statement smt = ConexionBD.conectar();
+		if (smt.executeUpdate(
+				"insert into equipo (nombre,presupuesto,valoracion,entrenador) values('" + nombre + "'," + presupuesto +","+ valoracion +",'" + entrenador.getNombre()+" "+entrenador.getApellidos() + "')") > 0) {
+			
+			this.setNombre(nombre);
+			this.setPresupuesto(presupuesto);
+			
+		}else {
+			
+			ConexionBD.desconectar();
+			throw new SQLException("No se ha podido insertar el equipo");
+		}
+		ConexionBD.desconectar();
 	}
 //	public Equipo(String nombre, float presupuesto,ArrayList<Jugador> jugadores,Entrenador entrenador) {
 //		
@@ -27,7 +46,7 @@ public class Equipo extends ElementoConNombre{
 	public float getPresupuesto() {
 		return presupuesto;
 	}
-	public void setPresupuesto(float presupuesto) {
+	public void setPresupuesto(int presupuesto) {
 		this.presupuesto = presupuesto;
 	}
 	public short getValoracion() {
@@ -57,28 +76,28 @@ public class Equipo extends ElementoConNombre{
 		return (short)(valTotal+entrenador.getNivelTactico());
 	}
 	
-//	public static ArrayList<Jugador> generarEquipo(Entrenador entrenador){
-//		ArrayList<Jugador> equipo=new ArrayList<Jugador>();
-//		byte[] formacion=entrenador.getFormacion();
-//		
-//		for(byte i=0;i<entrenador.getFormacion().length;i++) {
-//			for(byte j=0;j<formacion[i];j++) {
-//				switch(i) {
-//				case 0:
-//					equipo.add(new JugadorDeCampo(Persona.generarNombresAleatorios(),Persona.apellidosAleatorios(),Persona.generarNacionalidades(),Posicion.DEFENSA));
-//					break;
-//				case 1:
-//					equipo.add(new JugadorDeCampo(Persona.generarNombresAleatorios(),Persona.apellidosAleatorios(),Persona.generarNacionalidades(),Posicion.CENTROCAMPISTA));
-//					break;
-//				case 2:
-//					equipo.add(new JugadorDeCampo(Persona.generarNombresAleatorios(),Persona.apellidosAleatorios(),Persona.generarNacionalidades(),Posicion.DELANTERO));
-//					break;
-//				}
-//			}
-//		}
-//		equipo.add(new Portero(Persona.generarNombresAleatorios(),Persona.apellidosAleatorios(),Persona.generarNacionalidades()));
-//		return equipo;
-//	}
+	public static ArrayList<Jugador> generarEquipo(Entrenador entrenador) throws SQLException{
+		ArrayList<Jugador> equipo=new ArrayList<Jugador>();
+		byte[] formacion=entrenador.getFormacion();
+		
+		for(byte i=0;i<entrenador.getFormacion().length;i++) {
+			for(byte j=0;j<formacion[i];j++) {
+				switch(i) {
+				case 0:
+					equipo.add(new JugadorDeCampo(Persona.generarNombresAleatorios(),Persona.apellidosAleatorios(),Persona.generarNacionalidades(),Posicion.DEFENSA));
+					break;
+				case 1:
+					equipo.add(new JugadorDeCampo(Persona.generarNombresAleatorios(),Persona.apellidosAleatorios(),Persona.generarNacionalidades(),Posicion.CENTROCAMPISTA));
+					break;
+				case 2:
+					equipo.add(new JugadorDeCampo(Persona.generarNombresAleatorios(),Persona.apellidosAleatorios(),Persona.generarNacionalidades(),Posicion.DELANTERO));
+					break;
+				}
+			}
+		}
+		equipo.add(new Portero(Persona.generarNombresAleatorios(),Persona.apellidosAleatorios(),Persona.generarNacionalidades()));
+		return equipo;
+	}
 	
 	@Override
 	public String toString() {
