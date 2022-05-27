@@ -1,6 +1,10 @@
 package clases;
 
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Random;
+
+import utils.ConexionBD;
 
 public class Partido {
 
@@ -8,12 +12,26 @@ public class Partido {
 	private Equipo equipoVisitante;
 	private byte golesLocal;
 	private byte golesVisitante;
-	public Partido(Equipo equipoLocal, Equipo equipoVisitante) {
+	public Partido(Equipo equipoLocal, Equipo equipoVisitante) throws SQLException {
 		super();
-		this.setEquipoLocal(equipoLocal);
-		this.setEquipoVisitante(equipoVisitante);
+		
 		this.setGolesLocal((byte)generadorGolesLocal(equipoLocal,equipoVisitante));
 		this.setGolesVisitante((byte)generadorGolesVisitante(equipoLocal,equipoVisitante));
+		Statement smt = ConexionBD.conectar();
+		if (smt.executeUpdate(
+				"insert into partido (equipoLocal,golesLocal,equipoVisitante,golesVisitante) values('" + equipoLocal.getNombre() + "'," + golesLocal +",'"+ equipoVisitante.getNombre() +"'," + golesVisitante+ ")") > 0) {
+			
+			this.setEquipoLocal(equipoLocal);
+			this.setEquipoVisitante(equipoVisitante);
+			
+			
+		}else {
+			
+			ConexionBD.desconectar();
+			throw new SQLException("No se ha podido insertar el equipo");
+		}
+		ConexionBD.desconectar();
+		
 	}
 	public Equipo getEquipoLocal() {
 		return equipoLocal;
