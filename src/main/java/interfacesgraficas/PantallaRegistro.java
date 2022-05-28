@@ -37,78 +37,68 @@ public class PantallaRegistro extends JPanel {
 		setLayout(null);
 		
 		JLabel tituloRegistro = new JLabel("Registro ");
-		tituloRegistro.setBounds(21, 0, 154, 42);
+		tituloRegistro.setBounds(228, 0, 154, 42);
 		tituloRegistro.setFont(new Font("Microsoft Sans Serif", Font.BOLD, 36));
 		add(tituloRegistro);
 		
 		JLabel etiquetaNombre = new JLabel("Nombre");
-		etiquetaNombre.setBounds(206, 24, 36, 13);
+		etiquetaNombre.setBounds(206, 78, 36, 13);
 		add(etiquetaNombre);
 		
 		campoNombre = new JTextField();
-		campoNombre.setBounds(252, 21, 147, 19);
+		campoNombre.setBounds(252, 75, 147, 19);
 		campoNombre.setColumns(10);
 		add(campoNombre);
 		
 		JLabel etiquetaPrimerApellido = new JLabel("Primer Apellido:");
-		etiquetaPrimerApellido.setBounds(168, 52, 74, 13);
+		etiquetaPrimerApellido.setBounds(168, 107, 74, 13);
 		add(etiquetaPrimerApellido);
 		
 		campoApellido1 = new JTextField();
-		campoApellido1.setBounds(252, 50, 147, 19);
+		campoApellido1.setBounds(252, 104, 147, 19);
 		campoApellido1.setColumns(10);
 		add(campoApellido1);
 		
 		JLabel etiquetaSegundoApellido = new JLabel("Segundo Apellido:");
-		etiquetaSegundoApellido.setBounds(159, 85, 83, 13);
+		etiquetaSegundoApellido.setBounds(159, 136, 83, 13);
 		add(etiquetaSegundoApellido);
 		
 		campoApellido2 = new JTextField();
-		campoApellido2.setBounds(252, 79, 147, 19);
+		campoApellido2.setBounds(252, 133, 147, 19);
 		campoApellido2.setColumns(10);
 		add(campoApellido2);
 		
 		JLabel etiquetaEmail = new JLabel("Email:");
-		etiquetaEmail.setBounds(213, 114, 29, 13);
+		etiquetaEmail.setBounds(213, 165, 29, 13);
 		add(etiquetaEmail);
 		
 		campoEmail = new JTextField();
-		campoEmail.setBounds(252, 108, 147, 19);
+		campoEmail.setBounds(252, 162, 147, 19);
 		add(campoEmail);
 		campoEmail.setColumns(10);
 		
 		JLabel etiquetaPass = new JLabel("Contrase\u00F1a: ");
-		etiquetaPass.setBounds(183, 143, 59, 13);
+		etiquetaPass.setBounds(183, 194, 59, 13);
 		etiquetaPass.setBackground(new Color(200,0,0));
 		add(etiquetaPass);
 		
 		campoPass = new JPasswordField();
-		campoPass.setBounds(252, 137, 147, 19);
+		campoPass.setBounds(252, 191, 147, 19);
 		add(campoPass);
 		
-		JRadioButton generoH = new JRadioButton("Hombre");
-		generoH.setBounds(256, 170, 61, 21);
-		add(generoH);
-		
-		JRadioButton generoM = new JRadioButton("Mujer");
-		generoM.setBounds(348, 170, 51, 21);
-		add(generoM);
-		
 		JButton botonRegistrarse = new JButton("Registrarse");
-		botonRegistrarse.setBounds(295, 228, 85, 21);
+		botonRegistrarse.setFont(new Font("MV Boli", Font.BOLD, 18));
+		botonRegistrarse.setForeground(Color.BLACK);
+		botonRegistrarse.setBounds(206, 277, 193, 57);
 		
 		botonRegistrarse.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 			}
 		});
-		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(206, 197, 235, 21);
-		add(comboBox);
 		add(botonRegistrarse);
 		
-		JButton botonAtras = new JButton("Atras");
-		botonAtras.setBounds(422, 257, 57, 21);
+		JButton botonAtras = new JButton("Atr\u00E1s");
+		botonAtras.setBounds(533, 369, 57, 21);
 		botonAtras.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -117,10 +107,10 @@ public class PantallaRegistro extends JPanel {
 		});
 		add(botonAtras);
 		
-		JLabel lblNewLabel = new JLabel("New label");
-		lblNewLabel.setIcon(new ImageIcon(PantallaRegistro.class.getResource("/imag/campito44.png")));
-		lblNewLabel.setBounds(0, 0, 500, 300);
-		add(lblNewLabel);
+		JLabel etiquetaFondo = new JLabel("New label");
+		etiquetaFondo.setIcon(new ImageIcon(PantallaRegistro.class.getResource("/imag/cieloRegistro.png")));
+		etiquetaFondo.setBounds(0, 0, 600, 400);
+		add(etiquetaFondo);
 		ventana=v;
 		
 		
@@ -144,5 +134,4 @@ public class PantallaRegistro extends JPanel {
 			}
 		});
 	}
-
 }

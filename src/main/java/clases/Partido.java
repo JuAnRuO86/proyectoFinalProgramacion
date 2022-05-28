@@ -4,6 +4,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Random;
 
+import javax.swing.JOptionPane;
+
 import utils.ConexionBD;
 
 public class Partido {

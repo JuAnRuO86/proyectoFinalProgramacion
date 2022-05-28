@@ -37,8 +37,8 @@ public class Usuario extends ElementoConNombre{
 	}
 	
 	//Para el login
-	public Usuario(String email, String pass, String nombre) throws SQLException, contraseñaErroneaException, usuarioNoValidoException {
-		super(nombre);
+	public Usuario(String email, String pass) throws SQLException, contraseñaErroneaException, usuarioNoValidoException {
+		super();
 		Statement smt = ConexionBD.conectar();
 		ResultSet cursor=smt.executeQuery("select * from usuario where email='"+ email+"'");
 		
@@ -60,7 +60,7 @@ public class Usuario extends ElementoConNombre{
 		} else {
 			
 			ConexionBD.desconectar();
-			throw new usuarioNoValidoException("El nombre no es correcto");
+			throw new usuarioNoValidoException("El email no es correcto");
 		}
 	ConexionBD.desconectar();
 		
