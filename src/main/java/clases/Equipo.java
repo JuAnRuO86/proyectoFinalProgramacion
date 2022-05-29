@@ -1,5 +1,6 @@
 package clases;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -9,10 +10,14 @@ import utils.ConexionBD;
 
 public class Equipo extends ElementoConNombre{
 
-	private int presupuesto;
-	private short valoracion;
+	protected int presupuesto;
+	protected short valoracion;
 	private ArrayList<Jugador> jugadores;
 	private Entrenador entrenador;
+	
+	public Equipo() {
+		super();
+	}
 	
 	public Equipo(String nombre,int presupuesto,Entrenador entrenador) throws SQLException {
 		super();
@@ -22,7 +27,7 @@ public class Equipo extends ElementoConNombre{
 		this.setValoracion(valoracionObtenida(jugadores,entrenador));
 		Statement smt = ConexionBD.conectar();
 		if (smt.executeUpdate(
-				"insert into equipo (nombre,presupuesto,valoracion,entrenador) values('" + nombre + "'," + presupuesto +","+ valoracion +",'" + entrenador.getNombre()+" "+entrenador.getApellidos() + "')") > 0) {
+				"insert into equipo (nombre,presupuesto,valoracion,entrenador) values('" + nombre + "'," + presupuesto +","+ valoracion +",'" + entrenador.getNombre()+" "+entrenador.getApellidos() +"')") > 0) {
 			
 			this.setNombre(nombre);
 			this.setPresupuesto(presupuesto);
@@ -33,6 +38,11 @@ public class Equipo extends ElementoConNombre{
 			throw new SQLException("No se ha podido insertar el equipo");
 		}
 		ConexionBD.desconectar();
+	}
+	public Equipo(String nombre,short valoracion)  {
+		super();
+		this.setValoracion(valoracion);		
+		this.setNombre(nombre);			
 	}
 //	public Equipo(String nombre, float presupuesto,ArrayList<Jugador> jugadores,Entrenador entrenador) {
 //		
@@ -99,12 +109,13 @@ public class Equipo extends ElementoConNombre{
 		return equipo;
 	}
 	
+		
 	@Override
 	public String toString() {
 		return " "+getNombre()+" [presupuesto=" + presupuesto + ", valoracion=" + this.getValoracion()+ "]\n |         |\n |         |\n |JUGADORES|   "+entrenador+"\n |         |\n |         |\n \\/        \\/\n" + jugadores;
 	}
+
 	
-	
-	
+
 	
 }

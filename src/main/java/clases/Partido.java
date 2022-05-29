@@ -2,6 +2,7 @@ package clases;
 
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Random;
 
 import javax.swing.JOptionPane;
@@ -10,15 +11,21 @@ import utils.ConexionBD;
 
 public class Partido {
 
-	private Equipo equipoLocal;
-	private Equipo equipoVisitante;
-	private byte golesLocal;
-	private byte golesVisitante;
+	protected Equipo equipoLocal;
+	protected Equipo equipoVisitante;
+	protected byte golesLocal;
+	protected byte golesVisitante;
+	protected Equipo ganador;
+	
+	public Partido() {
+	}
 	public Partido(Equipo equipoLocal, Equipo equipoVisitante) throws SQLException {
 		super();
 		
 		this.setGolesLocal((byte)generadorGolesLocal(equipoLocal,equipoVisitante));
 		this.setGolesVisitante((byte)generadorGolesVisitante(equipoLocal,equipoVisitante));
+		//this.setGanador(generarGanador(golesLocal,golesVisitante));
+//		ganador.añadirPuntosGanador(ganador);
 		Statement smt = ConexionBD.conectar();
 		if (smt.executeUpdate(
 				"insert into partido (equipoLocal,golesLocal,equipoVisitante,golesVisitante) values('" + equipoLocal.getNombre() + "'," + golesLocal +",'"+ equipoVisitante.getNombre() +"'," + golesVisitante+ ")") > 0) {
@@ -59,7 +66,12 @@ public class Partido {
 	public void setGolesVisitante(byte golesVisitante) {
 		this.golesVisitante = golesVisitante;
 	}
-	
+	public Equipo getGanador() {
+		return ganador;
+	}
+	public void setGanador(Equipo ganador) {
+		this.ganador = ganador;
+	}
 	
 //La idea es dependiendo de la valoracion de cada equipo tendra mas oportunidad de meter goles que el otro, se pondrá varias secciones
 //que seran determinadas por los 90 min(0 a 15min se tirara el random por si alguno marca, el que tenga mas valoración tendrá mas posibilidades,
@@ -104,10 +116,61 @@ public class Partido {
 		return gol2;
 	}
 	
+//	public Equipo generarGanador() {
+//		if(golesLocal>golesVisitante) {
+//			return equipoLocal;
+//		}else if(golesLocal<golesVisitante){
+//			return equipoVisitante;
+//		}else {
+//			return null;
+//		}
+//	}
+	
+//	public void generarPartido(ArrayList<Equipo> todos) throws SQLException{
+//		
+//		
+//		for(byte i=1;i<=4;i++) {
+//			for(byte j=0;j<2;j++) {
+//				if(j==0) {
+//					equipoLocal=todos.get(j);
+//				}else {
+//					equipoVisitante=todos.get(j);
+//					todos.remove(j);
+//					todos.remove(j-1);
+//				}
+//			}
+//			setGolesLocal(generadorGolesLocal(equipoLocal,equipoVisitante));
+//			setGolesVisitante(generadorGolesVisitante(equipoLocal,equipoVisitante));
+//			ganador=generarGanador(golesLocal,golesVisitante);
+//			ganador.añadirPuntos(ganador);
+//			
+//			Statement smt = ConexionBD.conectar();
+//			if (smt.executeUpdate(
+//					"insert into partido (equipoLocal,golesLocal,equipoVisitante,golesVisitante,ganador) values('" + equipoLocal.getNombre() 
+//					+ "'," + golesLocal +",'"+ equipoVisitante.getNombre() +"'," + golesVisitante+",'"+ganador.getNombre()+"')") > 0) {				
+//			}else {
+//				ConexionBD.desconectar();
+//				throw new SQLException("No se ha podido iniciar el partido por altercado del público");
+//			}
+//			ConexionBD.desconectar();
+//		}
+//		
+//	}
+	
+	
+	
+	
+	
 	@Override
 	public String toString() {
-		return equipoLocal.getNombre() +"("+golesLocal+")"+" - " + equipoVisitante.getNombre() + "(" + golesVisitante + ")";
+		return "Partido [equipoLocal=" + equipoLocal.getNombre() + ", equipoVisitante=" + equipoVisitante.getNombre() + ", golesLocal="
+				+ golesLocal + ", golesVisitante=" + golesVisitante + ", ganador=" + ganador.getNombre() + "]";
 	}
+
+	
+	
+
+	
 	
 	
 	

@@ -17,4 +17,5 @@ public class Jornada extends ElementoConNombre{
 		this.partidos = partidos;
 	}
 	
+	
 }
