@@ -1,6 +1,7 @@
 package interfacesgraficas;
 
 import java.awt.Cursor;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Iterator;
 

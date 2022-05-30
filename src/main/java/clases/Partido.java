@@ -163,8 +163,7 @@ public class Partido {
 	
 	@Override
 	public String toString() {
-		return "Partido [equipoLocal=" + equipoLocal.getNombre() + ", equipoVisitante=" + equipoVisitante.getNombre() + ", golesLocal="
-				+ golesLocal + ", golesVisitante=" + golesVisitante + ", ganador=" + ganador.getNombre() + "]";
+		return equipoLocal.getNombre() + " " +golesLocal+" - "+ equipoVisitante.getNombre() + " " + golesVisitante + ", ganador= " + ganador.getNombre();
 	}
 
 	

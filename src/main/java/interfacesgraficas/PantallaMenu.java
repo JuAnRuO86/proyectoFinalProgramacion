@@ -14,6 +14,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.SQLException;
 
 public class PantallaMenu extends JPanel{
 
@@ -89,7 +90,7 @@ public class PantallaMenu extends JPanel{
 		etiquetaJugar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				ventana.irAPantalla("jugar");
+					ventana.irAPantalla("jugar");
 			}
 		});
 		

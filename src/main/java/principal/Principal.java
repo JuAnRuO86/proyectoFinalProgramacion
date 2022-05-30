@@ -81,19 +81,35 @@ public class Principal {
 
 		
 	ArrayList<Equipo> todosEquipos=Funciones.getEquipos();
-	
-	for(byte i=0;i<todosEquipos.size();i++) {
-		System.out.println(todosEquipos.get(i));
-	}
+	System.out.println(todosEquipos);
+//	for(byte i=0;i<todosEquipos.size();i++) {
+//		System.out.println(todosEquipos.get(i));
+//	}
 	
 		try {
 			//Al ser la fase de cuartos serian 4 partidos y 8 equipos
-			Funciones.jugarFase(todosEquipos,"cuartos");
-			Funciones.jugarFase(Funciones.getEquiposGanadores("cuartos"),"semifinales");
-			Funciones.jugarFase(Funciones.getEquiposGanadores("semifinales"), "final");
+			ArrayList<Partido> cuartos=Funciones.jugarFase(todosEquipos,"cuartos");
+			ArrayList<Partido> semifinales=Funciones.jugarFase(Funciones.getEquiposGanadores("cuartos"),"semifinales");
+			ArrayList<Partido> finales=Funciones.jugarFase(Funciones.getEquiposGanadores("semifinales"), "final");
+			
+			System.out.println("Partidos de cuartos de final ");
+			System.out.println(cuartos);
+			System.out.println();
+//			System.out.println(cuartos.get(0));
+//			System.out.println(cuartos.get(1));
+//			System.out.println(cuartos.get(2));
+//			System.out.println(cuartos.get(3));
+			
+			
+			
+			System.out.println("Partidos de semifinal");
+			System.out.println(semifinales);
+			System.out.println("Partido de la final");
+			System.out.println(finales);
+			
 			System.out.println("El ganador del torneo es: "+Funciones.getEquiposGanadores("final"));
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+
 			e.printStackTrace();
 		}
 	
