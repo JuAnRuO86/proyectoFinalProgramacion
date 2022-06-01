@@ -25,7 +25,6 @@ public class Funciones {
 			}
 				
 		} catch (SQLException ex) {
-			//Aqui no deberia entrar nunca porque la consulta siempre va a ser correcta
 			ex.printStackTrace();
 		}
 		
@@ -35,11 +34,12 @@ public class Funciones {
 		return ret;
 	}
 
-	public static ArrayList<Partido> jugarFase(ArrayList<Equipo> equipos,String fase) throws SQLException{
+	public static Partido[] jugarFase(ArrayList<Equipo> equipos,Fase fase) throws SQLException{
 		Partido ret=new Partido();
-		ArrayList<Partido> partidos=new ArrayList<Partido>();
-		switch(fase) {
+		Partido[] partidos=new Partido[0];
+		switch(fase.nombre) {
 		case "cuartos":
+			partidos=new Partido[4];
 			for(byte i=1;i<=4;i++) {
 				for(byte j=0;j<2;j++) {
 					if(j==0) {
@@ -65,8 +65,8 @@ public class Funciones {
 				}			
 				Statement smt = ConexionBD.conectar();
 				if (smt.executeUpdate(
-						"insert into partido (equipoLocal,golesLocal,equipoVisitante,golesVisitante,ganador) values('" + ret.equipoLocal.getNombre() 
-						+ "'," + ret.golesLocal +",'"+ ret.equipoVisitante.getNombre() +"'," + ret.golesVisitante+",'"+ret.ganador.getNombre()+"')") > 0) {				
+						"insert into partido (equipoLocal,golesLocal,equipoVisitante,golesVisitante,ganador,nombreFase) values('" + ret.equipoLocal.getNombre() 
+						+ "'," + ret.golesLocal +",'"+ ret.equipoVisitante.getNombre() +"'," + ret.golesVisitante+",'"+ret.ganador.getNombre()+"','"+fase.nombre+"')") > 0) {				
 				}else {
 					ConexionBD.desconectar();
 					throw new SQLException("No se ha podido iniciar el partido por altercado del público");
@@ -85,7 +85,7 @@ public class Funciones {
 						p.equipoVisitante.nombre=cursor.getString("equipoVisitante");
 						p.golesVisitante=cursor.getByte("golesVisitante");
 						p.ganador.nombre=cursor.getString("ganador");
-						partidos.add(p);
+						partidos[i-1]=ret;
 					}
 						cursor.close();
 				} catch (SQLException ex) {
@@ -99,6 +99,7 @@ public class Funciones {
 
 		break;
 		case "semifinales":
+			partidos=new Partido[2];
 			for(byte i=5;i<=6;i++) {
 				for(byte j=0;j<2;j++) {
 					if(j==0) {
@@ -124,8 +125,8 @@ public class Funciones {
 				}			
 				Statement smt = ConexionBD.conectar();
 				if (smt.executeUpdate(
-						"insert into partido (equipoLocal,golesLocal,equipoVisitante,golesVisitante,ganador) values('" + ret.equipoLocal.getNombre() 
-						+ "'," + ret.golesLocal +",'"+ ret.equipoVisitante.getNombre() +"'," + ret.golesVisitante+",'"+ret.ganador.getNombre()+"')") > 0) {				
+						"insert into partido (equipoLocal,golesLocal,equipoVisitante,golesVisitante,ganador,nombreFase) values('" + ret.equipoLocal.getNombre() 
+						+ "'," + ret.golesLocal +",'"+ ret.equipoVisitante.getNombre() +"'," + ret.golesVisitante+",'"+ret.ganador.getNombre()+"','"+fase.nombre+"')") > 0) {				
 				}else {
 					ConexionBD.desconectar();
 					throw new SQLException("No se ha podido iniciar el partido por altercado del público");
@@ -144,7 +145,7 @@ public class Funciones {
 						p.equipoVisitante.nombre=cursor.getString("equipoVisitante");
 						p.golesVisitante=cursor.getByte("golesVisitante");
 						p.ganador.nombre=cursor.getString("ganador");
-						partidos.add(p);
+						partidos[i-5]=ret;
 					}
 						cursor.close();
 				} catch (SQLException ex) {
@@ -157,6 +158,7 @@ public class Funciones {
 			}
 			break;
 		case "final":
+			partidos=new Partido[1];
 			for(byte i=7;i==7;i++) {
 				for(byte j=0;j<2;j++) {
 					if(j==0) {
@@ -182,8 +184,8 @@ public class Funciones {
 				}			
 				Statement smt = ConexionBD.conectar();
 				if (smt.executeUpdate(
-						"insert into partido (equipoLocal,golesLocal,equipoVisitante,golesVisitante,ganador) values('" + ret.equipoLocal.getNombre() 
-						+ "'," + ret.golesLocal +",'"+ ret.equipoVisitante.getNombre() +"'," + ret.golesVisitante+",'"+ret.ganador.getNombre()+"')") > 0) {				
+						"insert into partido (equipoLocal,golesLocal,equipoVisitante,golesVisitante,ganador,nombreFase) values('" + ret.equipoLocal.getNombre() 
+						+ "'," + ret.golesLocal +",'"+ ret.equipoVisitante.getNombre() +"'," + ret.golesVisitante+",'"+ret.ganador.getNombre()+"','"+fase.nombre+"')") > 0) {				
 				}else {
 					ConexionBD.desconectar();
 					throw new SQLException("No se ha podido iniciar el partido por altercado del público");
@@ -202,7 +204,7 @@ public class Funciones {
 						p.equipoVisitante.nombre=cursor.getString("equipoVisitante");
 						p.golesVisitante=cursor.getByte("golesVisitante");
 						p.ganador.nombre=cursor.getString("ganador");
-						partidos.add(p);
+						partidos[0]=ret;
 					}
 						cursor.close();
 				} catch (SQLException ex) {
@@ -226,11 +228,11 @@ public class Funciones {
 		
 	}
 
-	public static ArrayList<Equipo> getEquiposGanadores(String fase) throws SQLException{
+	public static ArrayList<Equipo> getEquiposGanadores(Fase fase) throws SQLException{
 				
 		String gan="";
 		ArrayList<Equipo> equipos = new ArrayList<Equipo>();
-		switch(fase) {
+		switch(fase.nombre) {
 		case "cuartos":
 			for(byte i=1;i<=4;i++) {
 				

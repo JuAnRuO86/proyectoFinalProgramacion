@@ -67,6 +67,16 @@ public class PantallaMenu extends JPanel{
 		panel_1_1.setBounds(0, 295, 440, 105);
 		add(panel_1_1);
 		
+		JButton etiquetaCerrarSesion = new JButton("Cerrar Sesi\u00F3n");
+		etiquetaCerrarSesion.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				ventana.irAPantalla("login");
+			}
+		});
+		etiquetaCerrarSesion.setBounds(10, 74, 100, 21);
+		panel_1_1.add(etiquetaCerrarSesion);
+		
 		JButton etiquetaMercado = new JButton("Mercado");
 		etiquetaMercado.setBounds(271, 33, 140, 40);
 		panel_1_1.add(etiquetaMercado);

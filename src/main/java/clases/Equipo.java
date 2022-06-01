@@ -4,6 +4,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Random;
 
 import enums.Posicion;
 import utils.ConexionBD;
@@ -106,6 +108,29 @@ public class Equipo extends ElementoConNombre{
 			}
 		}
 		equipo.add(new Portero(Persona.generarNombresAleatorios(),Persona.apellidosAleatorios(),Persona.generarNacionalidades()));
+		return equipo;
+	}
+	public static String generarNombresEquiposAleatorio() {
+		ArrayList<String> nombresEquipo = new ArrayList<String>(Arrays.asList("Robin Hood","Carabobo","Semen Padang","Huachipato ","Abuelos F.C.","Limón F.C.","Independiente Bigote","Sacachispas","Rico Pollo","Parrillas One","Tafea FC","Cuervos del Fin del Mundo","Correcaminos ","Venta de Baños","Toto African SC","PS Barito Putera","Nadroga","Minabo de Kiev","Vodka Juniors","Real Suciedad","Aston Birra","Yayo Vallecano","Roberto","Pasto de Grama","Real Furcia","Unión de casados","Los leones engripados","Balones pinchados","Kasko da lama","West Jamon","El Combo Alpinito","Los patadas al tobillo","Viejos pellejos","Jugadores de barrio","Ganadores natos","Árbitro penalty","No sabemos ganar","Real Alcohólicos","Nottingham Miedo","Coca Juniors","Unión Penosa"));
+		Random r = new Random();
+		String nombre;
+		
+		nombre=nombresEquipo.get(r.nextInt(nombresEquipo.size()));
+		return nombre;
+	}
+	public static String generarNombresEquiposAleatorio(ArrayList<String> nombres) {
+		ArrayList<String> nombresEquipo = new ArrayList<String>(Arrays.asList("Robin Hood","Carabobo","Semen Padang","Huachipato ","Abuelos F.C.","Limón F.C.","Independiente Bigote","Sacachispas","Rico Pollo","Parrillas One","Tafea FC","Cuervos del Fin del Mundo","Correcaminos ","Venta de Baños","Toto African SC","PS Barito Putera","Nadroga","Minabo de Kiev","Vodka Juniors","Real Suciedad","Aston Birra","Yayo Vallecano","Roberto","Pasto de Grama","Real Furcia","Unión de casados","Los leones engripados","Balones pinchados","Kasko da lama","West Jamon","El Combo Alpinito","Los patadas al tobillo","Viejos pellejos","Jugadores de barrio","Ganadores natos","Árbitro penalty","No sabemos ganar","Real Alcohólicos","Nottingham Miedo","Coca Juniors","Unión Penosa"));
+		Random r = new Random();
+		String equipo;
+		
+		for(byte i=0;i<nombresEquipo.size();i++) {
+			for(byte j=0;j<nombres.size();j++) {
+				if(nombres.get(j).equals(nombresEquipo.get(i))) {
+					nombresEquipo.remove(i);
+				}
+			}
+		}
+		equipo=nombresEquipo.get(r.nextInt(nombresEquipo.size()));
 		return equipo;
 	}
 	

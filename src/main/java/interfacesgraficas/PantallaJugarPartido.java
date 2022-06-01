@@ -10,6 +10,7 @@ import javax.swing.SwingConstants;
 import clases.Equipo;
 import clases.Funciones;
 import clases.Partido;
+import clases.Torneo;
 
 import javax.swing.AbstractListModel;
 import javax.swing.JButton;
@@ -19,66 +20,36 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.swing.JList;
+import javax.swing.ImageIcon;
 
 public class PantallaJugarPartido extends JPanel{
 
 	private Ventana ventana;
-	private JTextField txtVs;
+	private Torneo torneo;
 	
 	public PantallaJugarPartido(Ventana v) {
 		this.ventana=v;
 		setLayout(null);
 		
-		JLabel lblNewLabel_1 = new JLabel("New label");
-		lblNewLabel_1.setBounds(194, 282, 45, 13);
-		add(lblNewLabel_1);
-		
-		JLabel lblNewLabel_2 = new JLabel("New label");
-		lblNewLabel_2.setBounds(350, 282, 45, 13);
-		add(lblNewLabel_2);
-		
-		txtVs = new JTextField();
-		txtVs.setHorizontalAlignment(SwingConstants.CENTER);
-		txtVs.setText("vs");
-		txtVs.setBounds(175, 269, 259, 40);
-		add(txtVs);
-		txtVs.setColumns(10);
-		
 		JButton botonEmpezar = new JButton("Empezar Torneo");
-		botonEmpezar.setBounds(236, 339, 132, 21);
-		add(botonEmpezar);
-		
-		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(26, 23, 549, 236);
-		add(panel_1);
-		panel_1.setLayout(new BorderLayout(0, 0));
-		
-		JScrollPane scrollPane = new JScrollPane();
-		panel_1.add(scrollPane, BorderLayout.CENTER);
-		
-		JList list = new JList();
-		final ArrayList<Equipo> todosEquipos=Funciones.getEquipos();
-			final ArrayList<Partido> cuartosTorneo = new ArrayList<Partido>();
-			final ArrayList<Partido> semifinalesTorneo;
-			final ArrayList<Partido> finalTorneo;
+		botonEmpezar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
 			try {
-//				cuartosTorneo = Funciones.jugarFase(todosEquipos,"cuartos");
-				semifinalesTorneo = Funciones.jugarFase(Funciones.getEquiposGanadores("cuartos"),"semifinales");
-				finalTorneo = Funciones.jugarFase(Funciones.getEquiposGanadores("semifinales"),"final");
+				torneo.jugarTorneo();
 			} catch (SQLException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
-			}			
-			list.setModel(new AbstractListModel() {
-
-				public int getSize() {
-					return cuartosTorneo.size();
-				}
-				public Object getElementAt(int index) {
-					return cuartosTorneo.get(index);
-				}
-			});
-			scrollPane.setViewportView(list);
+			}
+			}
+		});
+		botonEmpezar.setBounds(231, 304, 132, 21);
+		add(botonEmpezar);
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setBounds(25, 21, 549, 236);
+		add(panel_1);
+		panel_1.setLayout(new BorderLayout(0, 0));
 
 		JButton etiquetaAtras = new JButton("Atr\u00E1s");
 		etiquetaAtras.addMouseListener(new MouseAdapter() {
@@ -89,6 +60,11 @@ public class PantallaJugarPartido extends JPanel{
 		});
 		etiquetaAtras.setBounds(10, 369, 57, 21);
 		add(etiquetaAtras);
+		
+		JLabel lblNewLabel = new JLabel("New label");
+		lblNewLabel.setIcon(new ImageIcon(PantallaJugarPartido.class.getResource("/imag/FondoJugarTorneo.png")));
+		lblNewLabel.setBounds(0, 0, 600, 400);
+		add(lblNewLabel);
 		
 		
 		

@@ -37,7 +37,7 @@ public class Partido {
 		}else {
 			
 			ConexionBD.desconectar();
-			throw new SQLException("No se ha podido insertar el equipo");
+			throw new SQLException("No se ha podido insertar el partido");
 		}
 		ConexionBD.desconectar();
 		
