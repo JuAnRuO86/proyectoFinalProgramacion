@@ -9,6 +9,9 @@ public class Fase extends ElementoConNombre{
 
 	private Partido[] partidos;
 
+	public Fase() {
+		super();
+	}
 	public Fase(String nombre) throws SQLException {
 		super();
 		Statement smt = ConexionBD.conectar();

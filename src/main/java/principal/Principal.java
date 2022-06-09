@@ -58,13 +58,20 @@ public class Principal {
 		
 		Ventana ventana=new Ventana();
 		
+//		Equipo equipoUsuario=new Equipo();
+//	try {
+//		equipoUsuario=new Equipo("mImiI FC",450000,new Entrenador(Persona.generarNombresAleatorios(),Persona.apellidosAleatorios(),Persona.generarNacionalidades()));
+//		Torneo.jugarTorneo(equipoUsuario);
+//	} catch (SQLException e) {
+//		// TODO Auto-generated catch block
+//		e.printStackTrace();
+//	}
 
 		
 		
 		
 		
-		
-		
+		//La documentacion de todo las variables para que sirven,funciones,clases
 		
 		
 		

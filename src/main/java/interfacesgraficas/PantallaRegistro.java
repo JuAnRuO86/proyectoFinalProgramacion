@@ -24,6 +24,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 import javax.swing.ImageIcon;
+import javax.swing.SwingConstants;
 
 public class PantallaRegistro extends JPanel {
 	private Ventana ventana;
@@ -37,59 +38,69 @@ public class PantallaRegistro extends JPanel {
 		setLayout(null);
 		
 		JLabel tituloRegistro = new JLabel("Registro ");
-		tituloRegistro.setBounds(228, 0, 154, 42);
-		tituloRegistro.setFont(new Font("Microsoft Sans Serif", Font.BOLD, 36));
+		tituloRegistro.setBounds(319, 0, 159, 46);
+		tituloRegistro.setFont(new Font("Yu Gothic UI", Font.BOLD | Font.ITALIC, 36));
 		add(tituloRegistro);
 		
 		JLabel etiquetaNombre = new JLabel("Nombre");
-		etiquetaNombre.setBounds(206, 78, 36, 13);
+		etiquetaNombre.setFont(new Font("Tahoma", Font.PLAIN, 22));
+		etiquetaNombre.setHorizontalAlignment(SwingConstants.CENTER);
+		etiquetaNombre.setBounds(168, 56, 169, 31);
 		add(etiquetaNombre);
 		
 		campoNombre = new JTextField();
-		campoNombre.setBounds(252, 75, 147, 19);
+		campoNombre.setBounds(429, 56, 174, 31);
 		campoNombre.setColumns(10);
 		add(campoNombre);
 		
 		JLabel etiquetaPrimerApellido = new JLabel("Primer Apellido:");
-		etiquetaPrimerApellido.setBounds(168, 107, 74, 13);
+		etiquetaPrimerApellido.setFont(new Font("Tahoma", Font.PLAIN, 22));
+		etiquetaPrimerApellido.setHorizontalAlignment(SwingConstants.CENTER);
+		etiquetaPrimerApellido.setBounds(168, 97, 169, 31);
 		add(etiquetaPrimerApellido);
 		
 		campoApellido1 = new JTextField();
-		campoApellido1.setBounds(252, 104, 147, 19);
+		campoApellido1.setBounds(429, 97, 174, 31);
 		campoApellido1.setColumns(10);
 		add(campoApellido1);
 		
 		JLabel etiquetaSegundoApellido = new JLabel("Segundo Apellido:");
-		etiquetaSegundoApellido.setBounds(159, 136, 83, 13);
+		etiquetaSegundoApellido.setFont(new Font("Tahoma", Font.PLAIN, 22));
+		etiquetaSegundoApellido.setHorizontalAlignment(SwingConstants.CENTER);
+		etiquetaSegundoApellido.setBounds(158, 138, 194, 31);
 		add(etiquetaSegundoApellido);
 		
 		campoApellido2 = new JTextField();
-		campoApellido2.setBounds(252, 133, 147, 19);
+		campoApellido2.setBounds(429, 138, 174, 31);
 		campoApellido2.setColumns(10);
 		add(campoApellido2);
 		
 		JLabel etiquetaEmail = new JLabel("Email:");
-		etiquetaEmail.setBounds(213, 165, 29, 13);
+		etiquetaEmail.setFont(new Font("Tahoma", Font.PLAIN, 22));
+		etiquetaEmail.setHorizontalAlignment(SwingConstants.CENTER);
+		etiquetaEmail.setBounds(188, 179, 149, 31);
 		add(etiquetaEmail);
 		
 		campoEmail = new JTextField();
-		campoEmail.setBounds(252, 162, 147, 19);
+		campoEmail.setBounds(429, 179, 174, 31);
 		add(campoEmail);
 		campoEmail.setColumns(10);
 		
 		JLabel etiquetaPass = new JLabel("Contrase\u00F1a: ");
-		etiquetaPass.setBounds(183, 194, 59, 13);
+		etiquetaPass.setFont(new Font("Tahoma", Font.PLAIN, 22));
+		etiquetaPass.setHorizontalAlignment(SwingConstants.CENTER);
+		etiquetaPass.setBounds(190, 215, 147, 31);
 		etiquetaPass.setBackground(new Color(200,0,0));
 		add(etiquetaPass);
 		
 		campoPass = new JPasswordField();
-		campoPass.setBounds(252, 191, 147, 19);
+		campoPass.setBounds(429, 220, 174, 31);
 		add(campoPass);
 		
 		JButton botonRegistrarse = new JButton("Registrarse");
 		botonRegistrarse.setFont(new Font("MV Boli", Font.BOLD, 18));
 		botonRegistrarse.setForeground(Color.BLACK);
-		botonRegistrarse.setBounds(206, 277, 193, 57);
+		botonRegistrarse.setBounds(273, 277, 251, 75);
 		
 		botonRegistrarse.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -98,7 +109,7 @@ public class PantallaRegistro extends JPanel {
 		add(botonRegistrarse);
 		
 		JButton botonAtras = new JButton("Atr\u00E1s");
-		botonAtras.setBounds(533, 369, 57, 21);
+		botonAtras.setBounds(10, 356, 57, 21);
 		botonAtras.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -108,8 +119,8 @@ public class PantallaRegistro extends JPanel {
 		add(botonAtras);
 		
 		JLabel etiquetaFondo = new JLabel("New label");
-		etiquetaFondo.setIcon(new ImageIcon(PantallaRegistro.class.getResource("/imag/cieloRegistro.png")));
-		etiquetaFondo.setBounds(0, 0, 600, 400);
+		etiquetaFondo.setIcon(new ImageIcon(PantallaRegistro.class.getResource("/imag/CopasCreacionEquipo.jpg")));
+		etiquetaFondo.setBounds(0, 0, 850, 400);
 		add(etiquetaFondo);
 		ventana=v;
 		

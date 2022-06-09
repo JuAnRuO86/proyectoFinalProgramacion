@@ -6,15 +6,17 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
+import java.util.TreeMap;
 
 import enums.Posicion;
 import utils.ConexionBD;
 
-public class Equipo extends ElementoConNombre{
+public class Equipo extends ElementoConNombre {
 
 	protected int presupuesto;
 	protected short valoracion;
-	private ArrayList<Jugador> jugadores;
+	private  ArrayList<Jugador> jugadores;
+	protected TreeMap<Posicion,Jugador> suplente;
 	private Entrenador entrenador;
 	
 	public Equipo() {
@@ -46,6 +48,10 @@ public class Equipo extends ElementoConNombre{
 		this.setValoracion(valoracion);		
 		this.setNombre(nombre);			
 	}
+	public Equipo(String nombre)  {
+		super();
+		this.setNombre(nombre);			
+	}
 //	public Equipo(String nombre, float presupuesto,ArrayList<Jugador> jugadores,Entrenador entrenador) {
 //		
 //		super(nombre);
@@ -55,7 +61,7 @@ public class Equipo extends ElementoConNombre{
 //		this.setValoracion(valoracionObtenida(jugadores,entrenador));
 //	}
 	
-	public float getPresupuesto() {
+	public int getPresupuesto() {
 		return presupuesto;
 	}
 	public void setPresupuesto(int presupuesto) {
@@ -78,7 +84,14 @@ public class Equipo extends ElementoConNombre{
 	}
 	public void setEntrenador(Entrenador entrenador) {
 		this.entrenador = entrenador;
+	}	
+	public TreeMap<Posicion, Jugador> getSuplente() {
+		return suplente;
 	}
+	public void setSuplente(TreeMap<Posicion, Jugador> suplente) {
+		this.suplente = suplente;
+	}
+
 	public short valoracionObtenida(ArrayList<Jugador> jugadores,Entrenador entrenador) {
 		short valTotal=0;
 		for(byte i=0;i<jugadores.size();i++) {
@@ -110,6 +123,7 @@ public class Equipo extends ElementoConNombre{
 		equipo.add(new Portero(Persona.generarNombresAleatorios(),Persona.apellidosAleatorios(),Persona.generarNacionalidades()));
 		return equipo;
 	}
+
 	public static String generarNombresEquiposAleatorio() {
 		ArrayList<String> nombresEquipo = new ArrayList<String>(Arrays.asList("Robin Hood","Carabobo","Semen Padang","Huachipato ","Abuelos F.C.","Limón F.C.","Independiente Bigote","Sacachispas","Rico Pollo","Parrillas One","Tafea FC","Cuervos del Fin del Mundo","Correcaminos ","Venta de Baños","Toto African SC","PS Barito Putera","Nadroga","Minabo de Kiev","Vodka Juniors","Real Suciedad","Aston Birra","Yayo Vallecano","Roberto","Pasto de Grama","Real Furcia","Unión de casados","Los leones engripados","Balones pinchados","Kasko da lama","West Jamon","El Combo Alpinito","Los patadas al tobillo","Viejos pellejos","Jugadores de barrio","Ganadores natos","Árbitro penalty","No sabemos ganar","Real Alcohólicos","Nottingham Miedo","Coca Juniors","Unión Penosa"));
 		Random r = new Random();
@@ -123,10 +137,10 @@ public class Equipo extends ElementoConNombre{
 		Random r = new Random();
 		String equipo;
 		
-		for(byte i=0;i<nombresEquipo.size();i++) {
-			for(byte j=0;j<nombres.size();j++) {
-				if(nombres.get(j).equals(nombresEquipo.get(i))) {
-					nombresEquipo.remove(i);
+		for(byte i=0;i<nombres.size();i++) {
+			for(byte j=0;j<nombresEquipo.size();j++) {
+				if((nombres.get(i)).equals(nombresEquipo.get(j))) {
+					nombresEquipo.remove(j);
 				}
 			}
 		}
@@ -139,7 +153,6 @@ public class Equipo extends ElementoConNombre{
 	public String toString() {
 		return " "+getNombre()+" [presupuesto=" + presupuesto + ", valoracion=" + this.getValoracion()+ "]\n |         |\n |         |\n |JUGADORES|   "+entrenador+"\n |         |\n |         |\n \\/        \\/\n" + jugadores;
 	}
-
 	
 
 	

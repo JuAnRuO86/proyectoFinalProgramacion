@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Random;
 
 import utils.ConexionBD;
 
@@ -33,6 +34,50 @@ public class Funciones {
 		
 		return ret;
 	}
+	public static ArrayList<Equipo> generarEquipos(Equipo equipoUsuario) throws SQLException{
+		Random r=new Random();
+		Entrenador[] entrenadores=new Entrenador[7];
+		for(byte i=0;i<7;i++) {
+			entrenadores[i]=new Entrenador(Persona.generarNombresAleatorios(),Persona.apellidosAleatorios(),Persona.generarNacionalidades());
+		}
+		ArrayList<Equipo> equipos=new ArrayList<Equipo>();
+		ArrayList<String> nombres=new ArrayList<String>();
+		for(byte i=0;i<7;i++) {			
+			if(i==0) {
+				equipos.add(new Equipo(Equipo.generarNombresEquiposAleatorio(),r.nextInt(1000000-50000)+50000,entrenadores[i]));	
+				nombres.add(equipos.get(0).nombre);
+			}else {
+				equipos.add(new Equipo(Equipo.generarNombresEquiposAleatorio(nombres),r.nextInt(1000000-50000)+50000,entrenadores[i]));
+				nombres.add(equipos.get(i).nombre);
+			}
+		}
+		equipos.add(equipoUsuario);
+		return equipos;
+	}
+	public static ArrayList<Partido> getPartidos(ArrayList<Equipo> equipos) throws SQLException{
+		ArrayList<Partido> ret=new ArrayList<Partido>();
+
+		Fase cuartosDeFinal=new Fase("cuartos");
+		Fase semifinales=new Fase("semifinales");
+		Fase finales=new Fase("final");
+		Partido[] cuartos=Funciones.jugarFase(equipos,cuartosDeFinal);
+		Partido[] semis=Funciones.jugarFase(Funciones.getEquiposGanadores(cuartosDeFinal),semifinales);
+		Partido[] granFinal=Funciones.jugarFase(Funciones.getEquiposGanadores(semifinales),finales);
+		for(byte i=0;i<cuartos.length;i++) {
+			System.out.println(cuartos[i]);
+			ret.add(cuartos[i]);
+		}
+		for(byte i=0;i<semis.length;i++) {
+			System.out.println(semis[i]);
+			ret.add(semis[i]);
+		}
+		for(byte i=0;i<granFinal.length;i++) {
+			System.out.println(granFinal[i]);
+			ret.add(granFinal[i]);
+		}
+
+		return ret;
+	}
 
 	public static Partido[] jugarFase(ArrayList<Equipo> equipos,Fase fase) throws SQLException{
 		Partido ret=new Partido();
@@ -40,6 +85,7 @@ public class Funciones {
 		switch(fase.nombre) {
 		case "cuartos":
 			partidos=new Partido[4];
+			ret.fase=fase;
 			for(byte i=1;i<=4;i++) {
 				for(byte j=0;j<2;j++) {
 					if(j==0) {
@@ -80,12 +126,14 @@ public class Funciones {
 						p.equipoLocal=ret.equipoLocal;
 						p.equipoVisitante=ret.equipoVisitante;
 						p.ganador=ret.ganador;
+						p.fase=ret.fase;
 						p.equipoLocal.nombre=cursor.getString("equipoLocal");
 						p.golesLocal=cursor.getByte("golesLocal");
 						p.equipoVisitante.nombre=cursor.getString("equipoVisitante");
 						p.golesVisitante=cursor.getByte("golesVisitante");
-						p.ganador.nombre=cursor.getString("ganador");
-						partidos[i-1]=ret;
+						p.ganador.nombre=cursor.getString("ganador");	
+						p.fase.nombre=cursor.getString("nombreFase");
+						partidos[i-1]=p;
 					}
 						cursor.close();
 				} catch (SQLException ex) {
@@ -100,6 +148,7 @@ public class Funciones {
 		break;
 		case "semifinales":
 			partidos=new Partido[2];
+			ret.fase=fase;
 			for(byte i=5;i<=6;i++) {
 				for(byte j=0;j<2;j++) {
 					if(j==0) {
@@ -140,16 +189,17 @@ public class Funciones {
 						p.equipoLocal=ret.equipoLocal;
 						p.equipoVisitante=ret.equipoVisitante;
 						p.ganador=ret.ganador;
+						p.fase=ret.fase;
 						p.equipoLocal.nombre=cursor.getString("equipoLocal");
 						p.golesLocal=cursor.getByte("golesLocal");
 						p.equipoVisitante.nombre=cursor.getString("equipoVisitante");
 						p.golesVisitante=cursor.getByte("golesVisitante");
 						p.ganador.nombre=cursor.getString("ganador");
-						partidos[i-5]=ret;
+						p.fase.nombre=cursor.getString("nombreFase");
+						partidos[i-5]=p;
 					}
 						cursor.close();
 				} catch (SQLException ex) {
-					//Aqui no deberia entrar nunca porque la consulta siempre va a ser correcta
 					ex.printStackTrace();
 				}
 				
@@ -159,6 +209,7 @@ public class Funciones {
 			break;
 		case "final":
 			partidos=new Partido[1];
+			ret.fase=fase;
 			for(byte i=7;i==7;i++) {
 				for(byte j=0;j<2;j++) {
 					if(j==0) {
@@ -199,16 +250,17 @@ public class Funciones {
 						p.equipoLocal=ret.equipoLocal;
 						p.equipoVisitante=ret.equipoVisitante;
 						p.ganador=ret.ganador;
+						p.fase=ret.fase;
 						p.equipoLocal.nombre=cursor.getString("equipoLocal");
 						p.golesLocal=cursor.getByte("golesLocal");
 						p.equipoVisitante.nombre=cursor.getString("equipoVisitante");
 						p.golesVisitante=cursor.getByte("golesVisitante");
 						p.ganador.nombre=cursor.getString("ganador");
-						partidos[0]=ret;
+						p.fase.nombre=cursor.getString("nombreFase");
+						partidos[0]=p;
 					}
 						cursor.close();
 				} catch (SQLException ex) {
-					//Aqui no deberia entrar nunca porque la consulta siempre va a ser correcta
 					ex.printStackTrace();
 				}
 				
@@ -299,6 +351,40 @@ public class Funciones {
 		return equipos;
 		
 	}
+	
+	
+	public static ArrayList<Persona> generarMercado(){
+		ArrayList<Persona> mer=new ArrayList<Persona>();
+
+		for(byte i=0;i<10;i++) {
+			try {
+				mer.add(new JugadorDeCampo(Persona.generarNombresAleatorios(),Persona.apellidosAleatorios(),Persona.generarNacionalidades()));
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+//			if(i>=7) {
+//				try {
+//					mer.add(new Entrenador(Persona.generarNombresAleatorios(),Persona.apellidosAleatorios(),Persona.generarNacionalidades()));
+//				} catch (SQLException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
+//			}
+		}
+		
+		
+		
+		
+		
+		return mer;
+	}
+	
+	
+	
+	
+	
+	
 	
 	
 	

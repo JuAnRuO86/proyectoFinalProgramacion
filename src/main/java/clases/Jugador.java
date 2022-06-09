@@ -4,7 +4,7 @@ import java.util.Random;
 
 import enums.Posicion;
 
-public class Jugador extends Persona{
+public class Jugador extends Persona implements Comparable<Object>{
 
 	protected Posicion posicion;
 
@@ -28,6 +28,12 @@ public class Jugador extends Persona{
 	public byte ponerEstadistica(byte min,byte max) {
 		Random r=new Random();
 		return (byte)(r.nextInt(max+1-min)+min);
+	}
+
+	@Override
+	public int compareTo(Object o) {
+		Jugador otro=(Jugador) o;
+		return this.posicion.compareTo(otro.posicion);
 	}
 	
 }

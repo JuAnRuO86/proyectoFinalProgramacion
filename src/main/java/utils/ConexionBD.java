@@ -5,12 +5,21 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+/**
+ * Clase que hace la conexión y desconexión con la base de datos.
+ * @author juaan
+ *
+ */
 public abstract class ConexionBD {
 	private final static String cadenaConexion="jdbc:mysql://127.0.0.1:3306/modocarrerafutsala";
 	private final static String usuarioBD="root";
 	private final static String passwordBD="1234567890"; //static se comparte el valor y siempre sera el mismo y no se repetira
 	private static Connection conexion; //singleton
 	
+	/**
+	 * Función que conecta con la base de datos.
+	 * @return nos devolverá consultas
+	 */
 	public static Statement conectar() { //Nos devolverá consultas Importar de java.sql
 		try {
 			if(conexion==null) {
@@ -24,6 +33,9 @@ public abstract class ConexionBD {
 		}
 	}
 	
+	/**
+	 * Función que desconecta de la base de datos.
+	 */
 	public static void desconectar() {
 		if(conexion!=null) {
 			try {

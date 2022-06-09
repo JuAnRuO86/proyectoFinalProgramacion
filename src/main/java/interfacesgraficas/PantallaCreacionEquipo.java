@@ -1,100 +1,120 @@
 package interfacesgraficas;
 
 import javax.swing.JPanel;
-import javax.swing.ButtonGroup;
-import javax.swing.JButton;
-import java.awt.Font;
-import java.awt.Color;
-import javax.swing.JTextField;
 import javax.swing.JLabel;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+
+import clases.Entrenador;
+import clases.Equipo;
+import clases.Jugador;
+import clases.Persona;
+import enums.Posicion;
+
+import java.awt.Font;
+import javax.swing.JButton;
+import javax.swing.JRadioButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import javax.swing.SwingConstants;
-import javax.swing.JRadioButton;
-import javax.swing.JComboBox;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
+import java.io.File;
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.TreeMap;
 
-public class PantallaCreacionEquipo extends JPanel{
-	private	Ventana ventana;
+public class PantallaCreacionEquipo extends JPanel {
 	private JTextField campoNombre;
+	private Ventana ventana;
 
 	public PantallaCreacionEquipo(Ventana v) {
+		
+		this.ventana=v;
 		setLayout(null);
 		
-		JButton botonCrearEquipo = new JButton("Crear Equipo");
-		botonCrearEquipo.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				String nombreEquipo = campoNombre.getText();
-				
-			}
-		});
-		botonCrearEquipo.setForeground(Color.BLACK);
-		botonCrearEquipo.setFont(new Font("MV Boli", Font.BOLD, 18));
-		botonCrearEquipo.setBounds(203, 317, 193, 57);
+		final JRadioButton boton5M = new JRadioButton("5M");
+		boton5M.setFont(new Font("Sitka Subheading", Font.ITALIC, 20));
+		boton5M.setHorizontalAlignment(SwingConstants.CENTER);
+		boton5M.setBounds(682, 304, 103, 36);
+		add(boton5M);
+		
+		final JRadioButton boton3M = new JRadioButton("3M");
+		boton3M.setHorizontalAlignment(SwingConstants.CENTER);
+		boton3M.setFont(new Font("Sitka Subheading", Font.ITALIC, 20));
+		boton3M.setBounds(555, 304, 103, 36);
+		add(boton3M);
+		
+		final JRadioButton boton1M = new JRadioButton("1M");
+		boton1M.setHorizontalAlignment(SwingConstants.CENTER);
+		boton1M.setFont(new Font("Sitka Subheading", Font.ITALIC, 20));
+		boton1M.setBounds(430, 304, 103, 36);
+		add(boton1M);
+		
+		ButtonGroup grupoPresupuesto=new ButtonGroup();
+		grupoPresupuesto.add(boton1M);
+		grupoPresupuesto.add(boton3M);
+		grupoPresupuesto.add(boton5M);
+		
+		JButton botonCrearEquipo = new JButton("CREAR EQUIPO");
+		
+		botonCrearEquipo.setFont(new Font("Sitka Display", Font.BOLD, 25));
+		botonCrearEquipo.setBounds(264, 164, 286, 74);
 		add(botonCrearEquipo);
 		
+		JLabel etiquetaPresupuesto = new JLabel("PRESUPUESTO");
+		etiquetaPresupuesto.setHorizontalAlignment(SwingConstants.CENTER);
+		etiquetaPresupuesto.setFont(new Font("Verdana", Font.BOLD | Font.ITALIC, 25));
+		etiquetaPresupuesto.setBounds(97, 286, 260, 54);
+		add(etiquetaPresupuesto);
+		
+		JLabel etiquetaNombre = new JLabel("NOMBRE");
+		etiquetaNombre.setFont(new Font("Verdana", Font.BOLD | Font.ITALIC, 25));
+		etiquetaNombre.setHorizontalAlignment(SwingConstants.CENTER);
+		etiquetaNombre.setBounds(157, 78, 155, 33);
+		add(etiquetaNombre);
+		
 		campoNombre = new JTextField();
-		campoNombre.setBounds(344, 95, 127, 26);
+		campoNombre.setFont(new Font("Tahoma", Font.PLAIN, 25));
+		campoNombre.setBounds(414, 67, 306, 44);
 		add(campoNombre);
 		campoNombre.setColumns(10);
 		
-		JLabel etiquetaNombre = new JLabel("Nombre");
-		etiquetaNombre.setFont(new Font("Verdana", Font.BOLD, 14));
-		etiquetaNombre.setBounds(131, 95, 73, 20);
-		add(etiquetaNombre);
+		JLabel lblNewLabel = new JLabel("New label");
+		lblNewLabel.setIcon(new ImageIcon(PantallaCreacionEquipo.class.getResource("/imag/InazumaEleven.jpg")));
+		lblNewLabel.setBounds(0, 0, 850, 400);
+		add(lblNewLabel);
 		
-		JLabel etiquetaPresupuesto = new JLabel("PRESUPUESTO");
-		etiquetaPresupuesto.setVerticalAlignment(SwingConstants.TOP);
-		etiquetaPresupuesto.setFont(new Font("Palatino Linotype", Font.ITALIC, 38));
-		etiquetaPresupuesto.setHorizontalAlignment(SwingConstants.CENTER);
-		etiquetaPresupuesto.setBounds(93, 198, 410, 38);
-		add(etiquetaPresupuesto);
 		
-		JPanel panel = new JPanel();
-		panel.setBounds(131, 246, 329, 45);
-		add(panel);
-		GridBagLayout gbl_panel = new GridBagLayout();
-		gbl_panel.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gbl_panel.rowHeights = new int[]{0, 0};
-		gbl_panel.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gbl_panel.rowWeights = new double[]{0.0, Double.MIN_VALUE};
-		panel.setLayout(gbl_panel);
 		
-		JRadioButton presupuesto100k = new JRadioButton("100k");
-		GridBagConstraints gbc_presupuesto100k = new GridBagConstraints();
-		gbc_presupuesto100k.insets = new Insets(0, 0, 0, 5);
-		gbc_presupuesto100k.gridx = 2;
-		gbc_presupuesto100k.gridy = 0;
-		panel.add(presupuesto100k, gbc_presupuesto100k);
-		presupuesto100k.setFont(new Font("Candara", Font.ITALIC, 18));
 		
-		JRadioButton presupuesto250k = new JRadioButton("250k");
-		GridBagConstraints gbc_presupuesto250k = new GridBagConstraints();
-		gbc_presupuesto250k.insets = new Insets(0, 0, 0, 5);
-		gbc_presupuesto250k.gridx = 4;
-		gbc_presupuesto250k.gridy = 0;
-		panel.add(presupuesto250k, gbc_presupuesto250k);
-		presupuesto250k.setFont(new Font("Candara", Font.ITALIC, 18));
-		
-		JRadioButton presupuesto500k = new JRadioButton("500k");
-		GridBagConstraints gbc_presupuesto500k = new GridBagConstraints();
-		gbc_presupuesto500k.insets = new Insets(0, 0, 0, 5);
-		gbc_presupuesto500k.gridx = 6;
-		gbc_presupuesto500k.gridy = 0;
-		panel.add(presupuesto500k, gbc_presupuesto500k);
-		presupuesto500k.setFont(new Font("Candara", Font.ITALIC, 18));
-		
-		ButtonGroup grupoPresupuesto=new ButtonGroup();
-		grupoPresupuesto.add(presupuesto100k);
-		grupoPresupuesto.add(presupuesto250k);
-		grupoPresupuesto.add(presupuesto500k);
-
-	
-	
-	
-	
+		botonCrearEquipo.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				String nombreEquipo=campoNombre.getText();
+				int presupuesto=0;
+				if(boton1M.isSelected()) {
+					presupuesto=1000000;
+				}else if(boton3M.isSelected()) {
+					presupuesto=3000000;
+				}else if(boton5M.isSelected()) {
+					presupuesto=5000000;
+				}
+				try {
+					ventana.equipoUsuario=new Equipo(nombreEquipo,presupuesto,new Entrenador(Persona.generarNombresAleatorios(),Persona.apellidosAleatorios(),Persona.generarNacionalidades()));
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+				ventana.equipoUsuario.setSuplente(new TreeMap<Posicion,Jugador>());
+				ventana.irAPantalla("menu");
+			}
+		});
 	}
 }

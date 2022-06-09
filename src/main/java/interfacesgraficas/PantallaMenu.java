@@ -1,6 +1,11 @@
 package interfacesgraficas;
 
 import javax.swing.JPanel;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import java.awt.BorderLayout;
@@ -9,12 +14,19 @@ import javax.swing.JButton;
 import javax.swing.ImageIcon;
 import java.awt.Component;
 import javax.swing.SwingConstants;
+
+import clases.Persona;
+import hilos.MusicaFondo;
+
 import javax.swing.JTextField;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class PantallaMenu extends JPanel{
 
@@ -22,6 +34,7 @@ public class PantallaMenu extends JPanel{
 	private JTextField TituloMenu;
 	
 	public PantallaMenu(Ventana v) {
+		
 		
 		this.ventana=v;
 		setLayout(null);
@@ -36,12 +49,12 @@ public class PantallaMenu extends JPanel{
 		add(panel);
 		panel.setLayout(null);
 		
-		JButton etiquetaJugar = new JButton("Jugar Partido");
+		JButton botonJugar = new JButton("Jugar Partido");
 		
-		etiquetaJugar.setBounds(23, 24, 140, 40);
-		etiquetaJugar.setHorizontalAlignment(SwingConstants.LEFT);
-		panel.add(etiquetaJugar);
-		etiquetaJugar.setAlignmentY(1.0f);
+		botonJugar.setBounds(23, 24, 140, 40);
+		botonJugar.setHorizontalAlignment(SwingConstants.LEFT);
+		panel.add(botonJugar);
+		botonJugar.setAlignmentY(1.0f);
 		
 		JLabel fondoJugarPartido = new JLabel("New label");
 		fondoJugarPartido.setIcon(new ImageIcon(PantallaMenu.class.getResource("/imag/menuJugar.png")));
@@ -53,9 +66,15 @@ public class PantallaMenu extends JPanel{
 		panel_1.setBounds(0, 184, 440, 113);
 		add(panel_1);
 		
-		JButton etiquetaAlineacion = new JButton("Alineaci\u00F3n");
-		etiquetaAlineacion.setBounds(144, 37, 140, 40);
-		panel_1.add(etiquetaAlineacion);
+		JButton botonAlineacion = new JButton("Alineaci\u00F3n");
+		botonAlineacion.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+			ventana.irAPantalla("alineacion");
+			}
+		});
+		botonAlineacion.setBounds(144, 37, 140, 40);
+		panel_1.add(botonAlineacion);
 		
 		JLabel fondoAlineacion = new JLabel("New label");
 		fondoAlineacion.setIcon(new ImageIcon(PantallaMenu.class.getResource("/imag/menuAlineacion.png")));
@@ -67,17 +86,23 @@ public class PantallaMenu extends JPanel{
 		panel_1_1.setBounds(0, 295, 440, 105);
 		add(panel_1_1);
 		
-		JButton etiquetaCerrarSesion = new JButton("Cerrar Sesi\u00F3n");
-		etiquetaCerrarSesion.addMouseListener(new MouseAdapter() {
+		JButton botonCerrarSesion = new JButton("Cerrar Sesi\u00F3n");
+		botonCerrarSesion.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				ventana.irAPantalla("login");
 			}
 		});
-		etiquetaCerrarSesion.setBounds(10, 74, 100, 21);
-		panel_1_1.add(etiquetaCerrarSesion);
+		botonCerrarSesion.setBounds(10, 74, 125, 21);
+		panel_1_1.add(botonCerrarSesion);
 		
 		JButton etiquetaMercado = new JButton("Mercado");
+		etiquetaMercado.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				ventana.irAPantalla("mercado");
+			}
+		});
 		etiquetaMercado.setBounds(271, 33, 140, 40);
 		panel_1_1.add(etiquetaMercado);
 		
@@ -96,11 +121,16 @@ public class PantallaMenu extends JPanel{
 		add(TituloMenu);
 		TituloMenu.setColumns(10);
 		
+		JLabel lblNewLabel = new JLabel("New label");
+		lblNewLabel.setIcon(new ImageIcon(PantallaMenu.class.getResource("/imag/UFL.jpg")));
+		lblNewLabel.setBounds(599, 0, 251, 400);
+		add(lblNewLabel);
 		
-		etiquetaJugar.addMouseListener(new MouseAdapter() {
+		
+		botonJugar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-					ventana.irAPantalla("jugar");
+				ventana.irAPantalla("jugar");
 			}
 		});
 		

@@ -16,23 +16,25 @@ public class Partido {
 	protected byte golesLocal;
 	protected byte golesVisitante;
 	protected Equipo ganador;
+	protected Fase fase;
 	
 	public Partido() {
 	}
-	public Partido(Equipo equipoLocal, Equipo equipoVisitante) throws SQLException {
+	public Partido(Equipo equipoLocal, Equipo equipoVisitante,Equipo ganador, Fase fase) throws SQLException {
 		super();
 		
 		this.setGolesLocal((byte)generadorGolesLocal(equipoLocal,equipoVisitante));
 		this.setGolesVisitante((byte)generadorGolesVisitante(equipoLocal,equipoVisitante));
-		//this.setGanador(generarGanador(golesLocal,golesVisitante));
+//		this.setGanador(generarGanador(golesLocal,golesVisitante));
 //		ganador.añadirPuntosGanador(ganador);
 		Statement smt = ConexionBD.conectar();
 		if (smt.executeUpdate(
-				"insert into partido (equipoLocal,golesLocal,equipoVisitante,golesVisitante) values('" + equipoLocal.getNombre() + "'," + golesLocal +",'"+ equipoVisitante.getNombre() +"'," + golesVisitante+ ")") > 0) {
+				"insert into partido (equipoLocal,golesLocal,equipoVisitante,golesVisitante,ganador,nombreFase) values('" + equipoLocal.getNombre() + "'," + golesLocal +",'"+ equipoVisitante.getNombre() +"'," + golesVisitante+",'"+ganador.getNombre()+"','"+ fase.getNombre() +"')") > 0) {
 			
 			this.setEquipoLocal(equipoLocal);
 			this.setEquipoVisitante(equipoVisitante);
-			
+			this.setGanador(ganador);
+			this.fase=fase;
 			
 		}else {
 			
@@ -72,6 +74,13 @@ public class Partido {
 	public void setGanador(Equipo ganador) {
 		this.ganador = ganador;
 	}
+	public Fase getFase() {
+		return fase;
+	}
+	public void setFase(Fase fase) {
+		this.fase=fase;
+	}
+	
 	
 //La idea es dependiendo de la valoracion de cada equipo tendra mas oportunidad de meter goles que el otro, se pondrá varias secciones
 //que seran determinadas por los 90 min(0 a 15min se tirara el random por si alguno marca, el que tenga mas valoración tendrá mas posibilidades,
@@ -163,7 +172,7 @@ public class Partido {
 	
 	@Override
 	public String toString() {
-		return equipoLocal.getNombre() + " " +golesLocal+" - "+ equipoVisitante.getNombre() + " " + golesVisitante + ", ganador= " + ganador.getNombre();
+		return "<"+fase.nombre+"> "+equipoLocal.getNombre() + " (" +golesLocal+") - "+ equipoVisitante.getNombre() + " (" + golesVisitante + ")		 ganador= " + ganador.getNombre();
 	}
 
 	
