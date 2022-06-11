@@ -35,7 +35,7 @@ public class Ventana extends JFrame{
 	protected Persona personaComprada;
 	protected Equipo equipoUsuario;
 	protected Fase fase;
-//	protected TreeMap<Posicion,Jugador> suplentes;
+	protected ArrayList<Jugador> suplentes;
 	protected Clip clip;
 
 	
@@ -53,13 +53,11 @@ public class Ventana extends JFrame{
 		this.setLocationRelativeTo(null);//Poner justo dps de determinar el tamaño, posiciona la ventana céntrica
 		
 		
-		//PANTALLA COMPLETA LAS DOS LINEAS SIGUIENTES
-		//this.setExtendedState(JFrame.MAXIMIZED_BOTH); //Pone de primeras en pantalla completa pero al minimizar conserva el tamaño predeterminado
-		//this.setUndecorated(true); //Como si fuera el f11 sin bordes la ventana
+//		this.setUndecorated(true); //Como si fuera el f11 sin bordes la ventana
 		
 		this.setTitle("Uefa Champions League");
 		this.setIconImage(new ImageIcon("./IconoPrincipal.png").getImage()); //ImageIcon recibe una ruta
-		this.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		this.setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR));
 		//this.setAlwaysOnTop(true); //Para que no puedas poner nada por encima de la ventana, ninguna otra ventana o lo que seas
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE); //Cerrará el programa cuando cerremos la ventana
 //		this.setEnabled(false); //No se puede pinchar ni hacer nada

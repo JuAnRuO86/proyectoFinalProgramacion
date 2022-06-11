@@ -7,10 +7,20 @@ import java.util.Random;
 
 import utils.ConexionBD;
 
+/**
+ * Clase cuya instancias representan un torneo, compuesto de varios equipos donde habrá solo un ganador
+ * @author juaan
+ *
+ */
 public class Torneo extends ElementoConNombre{
 
+	/** Las fases de las que estará compuesta el torneo, son 3.**/
 	private Fase[] fases;
 
+	/**
+	 * Constructor de torneo el cual creará automáticamente el torneo y lo insertará en la base de datos
+	 * @throws SQLException
+	 */
 	public Torneo() throws SQLException {
 		super();
 		Statement smt = ConexionBD.conectar();
@@ -27,19 +37,27 @@ public class Torneo extends ElementoConNombre{
 		ConexionBD.desconectar();
 		
 	}
-	public Torneo(String nombre, Fase[] fases) {
-		super(nombre);
-		this.setFases(fases);
-
-	}
+	/**
+	 * Getter de fases 
+	 * @return las fases del torneo
+	 */
 	public Fase[] getFases() {
 		return fases;
 	}
+	/**
+	 * Setter de fases
+	 * @param fases del torneo
+	 */
 	public void setFases(Fase[] fases) {
 		this.fases = fases;
 	}
 	
-	
+	/**
+	 * Función que ejecuta el torneo por completo llamando a otras funciones para complementarla
+	 * @param equipoUsuario es el equipo que representará al usuario y creado por el mismo
+	 * @return los partidos que se han jugado en el torneo
+	 * @throws SQLException
+	 */
 	public static ArrayList<Partido> jugarTorneo(Equipo equipoUsuario) throws SQLException {
 		Torneo UCL=new Torneo();
 		ArrayList<Equipo> equipos=Funciones.generarEquipos(equipoUsuario);

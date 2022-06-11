@@ -11,11 +11,9 @@ import javax.swing.SwingConstants;
 import javax.swing.border.MatteBorder;
 
 import clases.Usuario;
-import componentes.visuales.BotonAzul;
-import componentes.visuales.BotonRojo;
+import componentes.visuales.BotonColor;
 import excepciones.contraseñaErroneaException;
 import excepciones.usuarioNoValidoException;
-import hilos.MusicaFondo;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -41,13 +39,19 @@ public class PantallaLogin extends JPanel {
 		this.ventana=v;
 		setLayout(null);
 		
-		JButton botonLogin = new BotonRojo("Login");
+		JButton botonLogin = new BotonColor("Login");
+		botonLogin.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		botonLogin.setForeground(Color.WHITE);
+		botonLogin.setBackground(Color.DARK_GRAY);
 		
 		botonLogin.setToolTipText("Pincha aquí para iniciar sesión");
 		botonLogin.setBounds(207, 286, 160, 44);
 		this.add(botonLogin);
 		
-		JButton botonRegistro = new BotonAzul("Registrarse");
+		JButton botonRegistro = new BotonColor("Registrarse");
+		botonRegistro.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		botonRegistro.setForeground(Color.WHITE);
+		botonRegistro.setBackground(Color.DARK_GRAY);
 		botonRegistro.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -65,15 +69,15 @@ public class PantallaLogin extends JPanel {
 		add(etiquetaTitulo);
 		
 		JLabel etiquetaEmail = new JLabel("Email");
-		etiquetaEmail.setFont(new Font("Yu Gothic Medium", Font.BOLD | Font.ITALIC, 14));
+		etiquetaEmail.setFont(new Font("Yu Gothic Medium", Font.BOLD | Font.ITALIC, 18));
 		etiquetaEmail.setHorizontalAlignment(SwingConstants.CENTER);
-		etiquetaEmail.setBounds(244, 110, 93, 23);
+		etiquetaEmail.setBounds(244, 104, 110, 33);
 		add(etiquetaEmail);
 		
 		JLabel EtiquetaPass = new JLabel("Contraseña");
-		EtiquetaPass.setFont(new Font("Yu Gothic Medium", Font.BOLD | Font.ITALIC, 14));
+		EtiquetaPass.setFont(new Font("Yu Gothic Medium", Font.BOLD | Font.ITALIC, 18));
 		EtiquetaPass.setHorizontalAlignment(SwingConstants.CENTER);
-		EtiquetaPass.setBounds(244, 169, 93, 20);
+		EtiquetaPass.setBounds(230, 163, 143, 31);
 		add(EtiquetaPass);
 		
 		campoEmail = new JTextField();
@@ -86,7 +90,7 @@ public class PantallaLogin extends JPanel {
 		add(campoContraseña);
 		
 		JLabel lblNewLabel = new JLabel("New label");
-		lblNewLabel.setIcon(new ImageIcon(PantallaLogin.class.getResource("/imag/cieloRegistroT.png")));
+		lblNewLabel.setIcon(new ImageIcon(PantallaLogin.class.getResource("/imag/CopasCreacionEquipo.jpg")));
 		lblNewLabel.setBounds(0, 0, 850, 400);
 		add(lblNewLabel);
 		

@@ -7,15 +7,31 @@ import java.sql.Statement;
 import excepciones.contraseñaErroneaException;
 import excepciones.usuarioNoValidoException;
 import utils.ConexionBD;
-
+/**
+ *  Clase que representa al usuario que accede al programa
+ * @author juaan
+ *
+ */
 public class Usuario extends ElementoConNombre{
 
+	/** email del usuario **/
 	private String email;
+	/** contraseña del usuario **/
 	private String pass;
+	/** primer apellido del usuario **/
 	private String apellido1;
+	/** segundo apellido del usuario **/
 	private String apellido2;
 	
-	//Para registro
+	/**
+	 * Constructor con todas las variables internas, este constructor se basará en registrar a un nuevo usuario
+	 * @param nombre el nombre del usuario
+	 * @param apellido1 primer apellido del usuario
+	 * @param apellido2 segundo apellido del usuario
+	 * @param email email del usuario
+	 * @param pass contraseña del usuario
+	 * @throws SQLException
+	 */
 	public Usuario(String nombre, String apellido1, String apellido2, String email, String pass) throws SQLException {
 		super(nombre);
 		
@@ -36,7 +52,15 @@ public class Usuario extends ElementoConNombre{
 		ConexionBD.desconectar();
 	}
 	
-	//Para el login
+
+	/**
+	 * Constructor con las variables email y pass únicamente, este constructor se basará en acceder al programa(logear) con un usuario existente
+	 * @param email email del usuario
+	 * @param pass contraseña del usuario
+	 * @throws SQLException
+	 * @throws contraseñaErroneaException
+	 * @throws usuarioNoValidoException
+	 */
 	public Usuario(String email, String pass) throws SQLException, contraseñaErroneaException, usuarioNoValidoException {
 		super();
 		Statement smt = ConexionBD.conectar();
@@ -66,12 +90,19 @@ public class Usuario extends ElementoConNombre{
 		
 	}
 
-
+	/**
+	 * Getter de apellido1
+	 * @return el primer apellido del usuario
+	 */
 	public String getApellido1() {
 		return apellido1;
 	}
 
-
+	/**
+	 * Setter de apellido1, se lanzará una excepción si a la hora de cambiar el primer apellido de un usuario existente no encuentra a dicho usuario mediante su clave primaria
+	 * @param apellido1 Primer apellido del usuario
+	 * @throws SQLException
+	 */
 	public void setApellido1(String apellido1) throws SQLException {
 		
 		Statement smt = ConexionBD.conectar();
@@ -84,12 +115,19 @@ public class Usuario extends ElementoConNombre{
 		ConexionBD.desconectar();
 	}
 
-
+	/**
+	 * Getter de apellido2
+	 * @return el segundo apellido del usuario
+	 */
 	public String getApellido2() {
 		return apellido2;
 	}
 
-
+	/**
+	 * Setter de apellido2, se lanzará una excepción si a la hora de cambiar el segundo apellido de un usuario existente no encuentra a dicho usuario mediante su clave primaria
+	 * @param apellido2 Segundo apellido del usuario
+	 * @throws SQLException
+	 */
 	public void setApellido2(String apellido2) throws SQLException {
 		Statement smt = ConexionBD.conectar();
 		if (smt.executeUpdate("update usuario set apellido2='" + apellido2 + "' where email='" + this.email + "'") > 0) {
@@ -101,12 +139,19 @@ public class Usuario extends ElementoConNombre{
 		ConexionBD.desconectar();
 	}
 
-
+	/**
+	 * Getter de pass
+	 * @return la contraseña del usuario
+	 */
 	public String getPass() {
 		return pass;
 	}
 
-
+	/**
+	 * Setter de pass, se lanzará una excepción si a la hora de cambiar la contraseña de un usuario existente no encuentra a dicho usuario mediante su clave primaria
+	 * @param pass la contraseña del usuario
+	 * @throws SQLException
+	 */
 	public void setPass(String pass) throws SQLException {
 		Statement smt = ConexionBD.conectar();
 		if (smt.executeUpdate("update usuario set pass='" + pass + "' where email='" + this.email + "'") > 0) {
@@ -118,12 +163,19 @@ public class Usuario extends ElementoConNombre{
 		ConexionBD.desconectar();
 	}
 
-
+	/**
+	 * Getter de email
+	 * @return el email del usuario
+	 */
 	public String getEmail() {
 		return email;
 	}
 
-
+	/**
+	 * Setter de email, se lanzará una excepción si a la hora de cambiar el email de un usuario existente no encuentra a dicho usuario mediante su clave primaria
+	 * @param email el email del usuario
+	 * @throws SQLException
+	 */
 	public void setEmail(String email) throws SQLException {
 		Statement smt = ConexionBD.conectar();
 		if (smt.executeUpdate("update usuarios set email='" + email + "' where email='" + this.email + "'") > 0) {

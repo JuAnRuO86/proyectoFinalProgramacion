@@ -111,8 +111,8 @@ public class PantallaCreacionEquipo extends JPanel {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				
-				ventana.equipoUsuario.setSuplente(new TreeMap<Posicion,Jugador>());
+				ventana.suplentes=new ArrayList<Jugador>();
+//				ventana.equipoUsuario.setSuplente(ventana.suplentes);
 				ventana.irAPantalla("menu");
 			}
 		});

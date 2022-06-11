@@ -44,6 +44,17 @@ public class PantallaAlineacion extends JPanel{
 			}
 		});
 		
+		JLabel lblNewLabel_3 = new JLabel(""+ventana.equipoUsuario.getValoracion());
+		lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_3.setBounds(736, 10, 77, 27);
+		add(lblNewLabel_3);
+		
+		JLabel lblNewLabel_1 = new JLabel("Valoraci\u00F3n:");
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblNewLabel_1.setBounds(631, 10, 108, 23);
+		add(lblNewLabel_1);
+		
 		JLabel etiquetaSuplentes = new JLabel("Suplentes");
 		etiquetaSuplentes.setFont(new Font("Tahoma", Font.BOLD, 12));
 		etiquetaSuplentes.setHorizontalAlignment(SwingConstants.CENTER);
@@ -77,9 +88,9 @@ public class PantallaAlineacion extends JPanel{
 		add(scrollPane_3);
 		
 		final byte[] formacion=ventana.equipoUsuario.getEntrenador().getFormacion();
-		final TreeMap<Posicion,Jugador> defensas=new TreeMap<Posicion,Jugador>();
-		final TreeMap<Posicion,Jugador> centrocampistas=new TreeMap<Posicion,Jugador>();
-		final TreeMap<Posicion,Jugador> delanteros=new TreeMap<Posicion,Jugador>();
+		final ArrayList<Jugador> defensas=new ArrayList<Jugador>();
+		final ArrayList<Jugador> centrocampistas=new ArrayList<Jugador>();
+		final ArrayList<Jugador> delanteros=new ArrayList<Jugador>();
 		String form="";
 		for(byte i=0;i<formacion.length;i++) {
 			if(i==formacion.length-1) {
@@ -91,13 +102,13 @@ public class PantallaAlineacion extends JPanel{
 		for(byte i=0;i<4;i++) {
 			switch(ventana.equipoUsuario.getJugadores().get(i).getPosicion()) {
 			case DEFENSA:
-				defensas.put(ventana.equipoUsuario.getJugadores().get(i).getPosicion(),ventana.equipoUsuario.getJugadores().get(i));
+				defensas.add(ventana.equipoUsuario.getJugadores().get(i));
 				break;
 			case CENTROCAMPISTA:
-				centrocampistas.put(ventana.equipoUsuario.getJugadores().get(i).getPosicion(),ventana.equipoUsuario.getJugadores().get(i));
+				centrocampistas.add(ventana.equipoUsuario.getJugadores().get(i));
 				break;
 			case DELANTERO:
-				delanteros.put(ventana.equipoUsuario.getJugadores().get(i).getPosicion(),ventana.equipoUsuario.getJugadores().get(i));
+				delanteros.add(ventana.equipoUsuario.getJugadores().get(i));
 				break;
 			}
 		}
@@ -146,20 +157,22 @@ public class PantallaAlineacion extends JPanel{
 		});
 		
 		JButton botonQuitar = new JButton("Quitar");
+		botonQuitar.setVisible(false);
 		
 		botonQuitar.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		botonQuitar.setBounds(426, 367, 150, 24);
 		add(botonQuitar);
 		
 		JButton botonAñadir = new JButton("A\u00F1adir");
-	
+		botonAñadir.setVisible(false);
+		
 		botonAñadir.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		botonAñadir.setBounds(238, 367, 150, 24);
 		add(botonAñadir);
 		
 		JLabel lblNewLabel_2 = new JLabel("Formacion del entrenador: ");
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 24));
-		lblNewLabel_2.setBounds(222, 10, 296, 24);
+		lblNewLabel_2.setBounds(153, 10, 296, 24);
 		add(lblNewLabel_2);
 		btnNewButton.setBounds(10, 369, 77, 21);
 		add(btnNewButton);
@@ -173,7 +186,7 @@ public class PantallaAlineacion extends JPanel{
 		
 		JLabel lblNewLabel = new JLabel(""+form);
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 24));
-		lblNewLabel.setBounds(519, 10, 143, 27);
+		lblNewLabel.setBounds(459, 10, 143, 27);
 		add(lblNewLabel);
 		
 		JScrollPane scrollPane = new JScrollPane();
@@ -181,14 +194,14 @@ public class PantallaAlineacion extends JPanel{
 		add(scrollPane);
 		
 		final JList listaSuplentes = new JList();
-		if(ventana.equipoUsuario.getSuplente()!=null) {
+		if(ventana.suplentes!=null) {
 			listaSuplentes.setModel(new AbstractListModel() {
 
 				public int getSize() {
-					return ventana.equipoUsuario.getSuplente().size();
+					return ventana.suplentes.size();
 				}
 				public Object getElementAt(int index) {
-					return ventana.equipoUsuario.getSuplente().get(index);
+					return ventana.suplentes.get(index);
 				}
 			});
 		}

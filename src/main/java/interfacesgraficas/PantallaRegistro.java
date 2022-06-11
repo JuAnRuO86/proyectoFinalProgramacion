@@ -12,7 +12,7 @@ import java.awt.Font;
 import javax.swing.JTextField;
 
 import clases.Usuario;
-
+import componentes.visuales.BotonColor;
 
 import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
@@ -38,14 +38,14 @@ public class PantallaRegistro extends JPanel {
 		setLayout(null);
 		
 		JLabel tituloRegistro = new JLabel("Registro ");
-		tituloRegistro.setBounds(319, 0, 159, 46);
+		tituloRegistro.setBounds(365, 0, 159, 46);
 		tituloRegistro.setFont(new Font("Yu Gothic UI", Font.BOLD | Font.ITALIC, 36));
 		add(tituloRegistro);
 		
 		JLabel etiquetaNombre = new JLabel("Nombre");
 		etiquetaNombre.setFont(new Font("Tahoma", Font.PLAIN, 22));
 		etiquetaNombre.setHorizontalAlignment(SwingConstants.CENTER);
-		etiquetaNombre.setBounds(168, 56, 169, 31);
+		etiquetaNombre.setBounds(189, 56, 169, 31);
 		add(etiquetaNombre);
 		
 		campoNombre = new JTextField();
@@ -56,7 +56,7 @@ public class PantallaRegistro extends JPanel {
 		JLabel etiquetaPrimerApellido = new JLabel("Primer Apellido:");
 		etiquetaPrimerApellido.setFont(new Font("Tahoma", Font.PLAIN, 22));
 		etiquetaPrimerApellido.setHorizontalAlignment(SwingConstants.CENTER);
-		etiquetaPrimerApellido.setBounds(168, 97, 169, 31);
+		etiquetaPrimerApellido.setBounds(189, 97, 169, 31);
 		add(etiquetaPrimerApellido);
 		
 		campoApellido1 = new JTextField();
@@ -67,7 +67,7 @@ public class PantallaRegistro extends JPanel {
 		JLabel etiquetaSegundoApellido = new JLabel("Segundo Apellido:");
 		etiquetaSegundoApellido.setFont(new Font("Tahoma", Font.PLAIN, 22));
 		etiquetaSegundoApellido.setHorizontalAlignment(SwingConstants.CENTER);
-		etiquetaSegundoApellido.setBounds(158, 138, 194, 31);
+		etiquetaSegundoApellido.setBounds(178, 138, 194, 31);
 		add(etiquetaSegundoApellido);
 		
 		campoApellido2 = new JTextField();
@@ -78,7 +78,7 @@ public class PantallaRegistro extends JPanel {
 		JLabel etiquetaEmail = new JLabel("Email:");
 		etiquetaEmail.setFont(new Font("Tahoma", Font.PLAIN, 22));
 		etiquetaEmail.setHorizontalAlignment(SwingConstants.CENTER);
-		etiquetaEmail.setBounds(188, 179, 149, 31);
+		etiquetaEmail.setBounds(203, 179, 149, 31);
 		add(etiquetaEmail);
 		
 		campoEmail = new JTextField();
@@ -89,7 +89,7 @@ public class PantallaRegistro extends JPanel {
 		JLabel etiquetaPass = new JLabel("Contrase\u00F1a: ");
 		etiquetaPass.setFont(new Font("Tahoma", Font.PLAIN, 22));
 		etiquetaPass.setHorizontalAlignment(SwingConstants.CENTER);
-		etiquetaPass.setBounds(190, 215, 147, 31);
+		etiquetaPass.setBounds(203, 215, 147, 31);
 		etiquetaPass.setBackground(new Color(200,0,0));
 		add(etiquetaPass);
 		
@@ -97,9 +97,10 @@ public class PantallaRegistro extends JPanel {
 		campoPass.setBounds(429, 220, 174, 31);
 		add(campoPass);
 		
-		JButton botonRegistrarse = new JButton("Registrarse");
+		JButton botonRegistrarse = new BotonColor("Registrarse");
+		botonRegistrarse.setBackground(Color.DARK_GRAY);
 		botonRegistrarse.setFont(new Font("MV Boli", Font.BOLD, 18));
-		botonRegistrarse.setForeground(Color.BLACK);
+		botonRegistrarse.setForeground(Color.WHITE);
 		botonRegistrarse.setBounds(273, 277, 251, 75);
 		
 		botonRegistrarse.addActionListener(new ActionListener() {
@@ -109,7 +110,8 @@ public class PantallaRegistro extends JPanel {
 		add(botonRegistrarse);
 		
 		JButton botonAtras = new JButton("Atr\u00E1s");
-		botonAtras.setBounds(10, 356, 57, 21);
+		botonAtras.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		botonAtras.setBounds(10, 346, 108, 31);
 		botonAtras.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {

@@ -54,6 +54,7 @@ public class Funciones {
 		equipos.add(equipoUsuario);
 		return equipos;
 	}
+		
 	public static ArrayList<Partido> getPartidos(ArrayList<Equipo> equipos) throws SQLException{
 		ArrayList<Partido> ret=new ArrayList<Partido>();
 

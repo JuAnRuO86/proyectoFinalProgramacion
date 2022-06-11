@@ -16,7 +16,6 @@ import java.awt.Component;
 import javax.swing.SwingConstants;
 
 import clases.Persona;
-import hilos.MusicaFondo;
 
 import javax.swing.JTextField;
 import java.awt.Color;

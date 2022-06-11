@@ -12,7 +12,6 @@ import clases.Funciones;
 import clases.Partido;
 import clases.Torneo;
 import clases.Usuario;
-import hilos.MusicaFondo;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -29,11 +28,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
 
 public class PantallaJugarPartido extends JPanel{
 
 	private Ventana ventana;
+	private PantallaMenu pantallaMenu;
 	private Torneo torneo;
 	protected Clip clip;
 
@@ -98,12 +99,15 @@ public class PantallaJugarPartido extends JPanel{
 							return todosPartidos.get(index);
 						}
 					});
-				
+				JOptionPane.showMessageDialog(pantallaMenu, "El ganador es: "+todosPartidos.get(todosPartidos.size()-1).getGanador().getNombre(),"Torneo acabado con éxito",JOptionPane.INFORMATION_MESSAGE);
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
+				System.exit(0);
+				
 			}
+
 		});
 		
 	}

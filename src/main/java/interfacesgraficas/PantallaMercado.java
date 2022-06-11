@@ -19,6 +19,7 @@ import java.awt.BorderLayout;
 import javax.swing.SwingConstants;
 import javax.swing.JLabel;
 import java.awt.Font;
+import javax.swing.ImageIcon;
 
 public class PantallaMercado extends JPanel{
 	
@@ -36,10 +37,10 @@ public class PantallaMercado extends JPanel{
 		add(botonAtras);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(0, 0, 850, 400);
+		scrollPane.setBounds(0, 0, 712, 400);
 		add(scrollPane);
 		
-		final JLabel etiquetaPresupuestoActual = new JLabel(""+ventana.equipoUsuario.getPresupuesto());
+		final JLabel etiquetaPresupuestoActual = new JLabel(ventana.equipoUsuario.getPresupuesto()+" €");
 		etiquetaPresupuestoActual.setFont(new Font("Tahoma", Font.PLAIN, 24));
 		etiquetaPresupuestoActual.setHorizontalAlignment(SwingConstants.CENTER);
 		scrollPane.setColumnHeaderView(etiquetaPresupuestoActual);
@@ -62,29 +63,34 @@ public class PantallaMercado extends JPanel{
 		
 		JButton botonComprar = new JButton("Comprar");
 //		final ArrayList<Persona> suplentes=new ArrayList<Persona>();
-		String nuevoPresupuesto="";
 		botonComprar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				Jugador seleccionado=(Jugador)listaMercado.getSelectedValue();
-				if(ventana.equipoUsuario.getPresupuesto()>=seleccionado.getPrecio()) {
-					ventana.suplentes.add(seleccionado);
-					ventana.equipoUsuario.setPresupuesto(ventana.equipoUsuario.getPresupuesto()-seleccionado.getPrecio());
-					etiquetaPresupuestoActual.setText(String.valueOf(""+(ventana.equipoUsuario.getPresupuesto())));
-					mercado.remove(seleccionado);
-					listaMercado.repaint();					
+				if(seleccionado!=null) {
+					if(ventana.equipoUsuario.getPresupuesto()>=seleccionado.getPrecio()) {
+						ventana.suplentes.add(seleccionado);
+						ventana.equipoUsuario.setPresupuesto(ventana.equipoUsuario.getPresupuesto()-seleccionado.getPrecio());
+						etiquetaPresupuestoActual.setText(String.valueOf(""+(ventana.equipoUsuario.getPresupuesto())));
+						mercado.remove(seleccionado);
+						listaMercado.repaint();					
 					}else {
-					JOptionPane.showMessageDialog(ventana, "No se puede realizar la compra de "+seleccionado.getNombre(),"Compra Fallida",JOptionPane.INFORMATION_MESSAGE);
-				}
-				
+						JOptionPane.showMessageDialog(ventana, "No se puede realizar la compra de "+seleccionado.getNombre(),"Compra Fallida",JOptionPane.INFORMATION_MESSAGE);
+						
+					}
+				} 
 			}
 		});
 		scrollPane.setRowHeaderView(botonComprar);
 		
+		JLabel lblNewLabel = new JLabel("New label");
+		lblNewLabel.setIcon(new ImageIcon(PantallaMercado.class.getResource("/imag/mercadoBanner.jpg")));
+		lblNewLabel.setBounds(712, 0, 138, 400);
+		add(lblNewLabel);
+		
 		botonAtras.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-//				ventana.equipoUsuario.setSuplentes(suplentes);
 				ventana.irAPantalla("menu");
 			}
 		});

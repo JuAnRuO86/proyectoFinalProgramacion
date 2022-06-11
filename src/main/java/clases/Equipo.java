@@ -16,7 +16,6 @@ public class Equipo extends ElementoConNombre {
 	protected int presupuesto;
 	protected short valoracion;
 	private  ArrayList<Jugador> jugadores;
-	protected TreeMap<Posicion,Jugador> suplente;
 	private Entrenador entrenador;
 	
 	public Equipo() {
@@ -85,12 +84,7 @@ public class Equipo extends ElementoConNombre {
 	public void setEntrenador(Entrenador entrenador) {
 		this.entrenador = entrenador;
 	}	
-	public TreeMap<Posicion, Jugador> getSuplente() {
-		return suplente;
-	}
-	public void setSuplente(TreeMap<Posicion, Jugador> suplente) {
-		this.suplente = suplente;
-	}
+
 
 	public short valoracionObtenida(ArrayList<Jugador> jugadores,Entrenador entrenador) {
 		short valTotal=0;
