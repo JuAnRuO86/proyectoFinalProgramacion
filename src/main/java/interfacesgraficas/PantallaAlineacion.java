@@ -27,11 +27,19 @@ import clases.JugadorDeCampo;
 import clases.Persona;
 import clases.Usuario;
 import java.awt.Color;
-
+/**
+ * Clase que hereda de JPanel, y que contendrá las funcionalidades para ver la alineacion del equipo del usuario
+ * @author juaan
+ *
+ */
 public class PantallaAlineacion extends JPanel{
-
+	/** la ventana principal **/
 	private Ventana ventana;
-	
+
+	/**
+	 * Constructor de PantallaAlineacion que contendrá unas listas, etiquetas entre otras
+	 * @param v la ventana principal
+	 */
 	public PantallaAlineacion(Ventana v) {
 		this.ventana=v;
 		setLayout(null);

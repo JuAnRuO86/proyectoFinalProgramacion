@@ -12,8 +12,9 @@ import javax.swing.border.MatteBorder;
 
 import clases.Usuario;
 import componentes.visuales.BotonColor;
-import excepciones.contraseñaErroneaException;
-import excepciones.usuarioNoValidoException;
+import excepciones.ContraseñaErroneaException;
+import excepciones.NombreValidoException;
+import excepciones.UsuarioNoValidoException;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -24,18 +25,24 @@ import java.io.File;
 import java.sql.SQLException;
 
 import javax.swing.ImageIcon;
-
+/**
+ * Clase que hereda de JPanel, y que contendrá las funcionalidades para logear con un usuario ya registrado en el programa.
+ * @author juaan
+ *
+ */
 public class PantallaLogin extends JPanel {
-	
+	/** la ventana principal **/
 	private	Ventana ventana;
-	
+	/** el campo donde se escribirá el email del usuario **/
 	private JTextField campoEmail;
+	/** el campo donde se escribirá la contraseña del usuario **/	
 	private JPasswordField campoContraseña;
 	
-	
-	public PantallaLogin(Ventana v) {
-		
-		
+	/**
+	 * Constructor de PantallaLogin que contendrá distintos campos, botones y etiquetas
+	 * @param v la ventana principal
+	 */
+	public PantallaLogin(Ventana v) {		
 		this.ventana=v;
 		setLayout(null);
 		
@@ -68,17 +75,17 @@ public class PantallaLogin extends JPanel {
 		etiquetaTitulo.setBounds(10, 10, 830, 57);
 		add(etiquetaTitulo);
 		
-		JLabel etiquetaEmail = new JLabel("Email");
+		final JLabel etiquetaEmail = new JLabel("Email");
 		etiquetaEmail.setFont(new Font("Yu Gothic Medium", Font.BOLD | Font.ITALIC, 18));
 		etiquetaEmail.setHorizontalAlignment(SwingConstants.CENTER);
 		etiquetaEmail.setBounds(244, 104, 110, 33);
 		add(etiquetaEmail);
 		
-		JLabel EtiquetaPass = new JLabel("Contraseña");
-		EtiquetaPass.setFont(new Font("Yu Gothic Medium", Font.BOLD | Font.ITALIC, 18));
-		EtiquetaPass.setHorizontalAlignment(SwingConstants.CENTER);
-		EtiquetaPass.setBounds(230, 163, 143, 31);
-		add(EtiquetaPass);
+		final JLabel etiquetaPass = new JLabel("Contraseña");
+		etiquetaPass.setFont(new Font("Yu Gothic Medium", Font.BOLD | Font.ITALIC, 18));
+		etiquetaPass.setHorizontalAlignment(SwingConstants.CENTER);
+		etiquetaPass.setBounds(230, 163, 143, 31);
+		add(etiquetaPass);
 		
 		campoEmail = new JTextField();
 		campoEmail.setBounds(463, 100, 205, 37);
@@ -93,25 +100,43 @@ public class PantallaLogin extends JPanel {
 		lblNewLabel.setIcon(new ImageIcon(PantallaLogin.class.getResource("/imag/CopasCreacionEquipo.jpg")));
 		lblNewLabel.setBounds(0, 0, 850, 400);
 		add(lblNewLabel);
-		
+
+		if(ventana.email!="" && ventana.pass!="") {
+			etiquetaEmail.setVisible(false);
+			etiquetaPass.setVisible(false);
+			campoEmail.setVisible(false);
+			campoContraseña.setVisible(false);
+		}
 		
 		botonLogin.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				String email=campoEmail.getText();
-				String contraseña=new String(campoContraseña.getPassword());
-				try {
-					ventana.usuarioLogado=new Usuario(email,contraseña);
-					JOptionPane.showMessageDialog(ventana, "Bienvenid@ "+ventana.usuarioLogado.getNombre(),"Inicio de sesión con éxito",JOptionPane.INFORMATION_MESSAGE);
-					ventana.irAPantalla("creacionEquipo");
-				} catch (SQLException | contraseñaErroneaException | usuarioNoValidoException e1) {
-
-					JOptionPane.showMessageDialog(ventana,e1.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
-					e1.printStackTrace();
+				if(ventana.email!="" && ventana.pass!="") {
+					try {
+						ventana.usuarioLogado=new Usuario(ventana.email,ventana.pass);
+						JOptionPane.showMessageDialog(ventana, "Bienvenid@ "+ventana.usuarioLogado.getNombre(),"Inicio de sesión con éxito",JOptionPane.INFORMATION_MESSAGE);
+						ventana.irAPantalla("creacionEquipo");
+					} catch (SQLException | ContraseñaErroneaException | UsuarioNoValidoException | NombreValidoException e1) {
+						e1.printStackTrace();
+					}
+				}else {
+					String email=campoEmail.getText();
+					String contraseña=new String(campoContraseña.getPassword());
+					try {
+						ventana.usuarioLogado=new Usuario(email,contraseña);
+						JOptionPane.showMessageDialog(ventana, "Bienvenid@ "+ventana.usuarioLogado.getNombre(),"Inicio de sesión con éxito",JOptionPane.INFORMATION_MESSAGE);
+						ventana.irAPantalla("creacionEquipo");
+					} catch (SQLException | ContraseñaErroneaException | UsuarioNoValidoException | NombreValidoException e1) {
+	
+						JOptionPane.showMessageDialog(ventana,e1.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
+						e1.printStackTrace();
+					}
 				}
 			}
 			
 		});
 		
 	}
+	
+	
 }

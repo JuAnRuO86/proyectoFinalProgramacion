@@ -18,78 +18,32 @@ import enums.Posicion;
 import interfacesgraficas.Ventana;
 import utils.ConexionBD;
 import clases.Funciones;
-
+/**
+ * Clase principal, donde se desarrollará el juego hasta que acabe
+ * 
+ * @author juaan
+ *
+ */
 public class Principal {
-
+	/**
+	 * Función principal. Se le pasa por argumentos el email y la contraseña de un usuario ya registrado, solo tendrá que interactuar con el boton de logearte para empezar, si no se le pasa por argumentos, entonces, primero tendrás que registrar un nuevo usuario y luego iniciar sesión con el mismo. Una vez logeado tendrás que crear un equipo con las indicaciones que se de y accederas posteriormente al menu el cual tendrá tres pantallas a elegir y poder desplazarte libremente entre ellas, la primera pantalla es la de jugar el torneo que una vez entres en esa pantalla e inicies el torneo habrá finalizado el programa, la segunda pantalla sería la alineacion del equipo del usuario donde lo podrás ver con más exactitud los jugadores y sus valoraciones etc, y por tercero y ultima pantalla sería al del mercado donde podrás comprar nuevos jugadores que aparezcan para tu equipo	* 
+	 * @param args utilizados.
+	 */
 	public static void main(String[] args) {
-		
-		 
-//			JugadorDeCampo j1 = new JugadorDeCampo(Persona.generarNombresAleatorios(),Persona.apellidosAleatorios(),Persona.generarNacionalidades(),Posicion.DELANTERO);
-//			System.out.println(j1.getValoracion());
-//			System.out.println(j1.getPrecio());
-//			System.out.println(j1);
-//			JugadorDeCampo j2 = new JugadorDeCampo(Persona.generarNombresAleatorios(),Persona.apellidosAleatorios(),Persona.generarNacionalidades(),Posicion.CENTROCAMPISTA);
-//			JugadorDeCampo j3 = new JugadorDeCampo(Persona.generarNombresAleatorios(),Persona.apellidosAleatorios(),Persona.generarNacionalidades(),Posicion.DEFENSA);
-//			JugadorDeCampo j4 = new JugadorDeCampo(Persona.generarNombresAleatorios(),Persona.apellidosAleatorios(),Persona.generarNacionalidades(),Posicion.DEFENSA);
+	
+		if(args.length>0) {
+			String nombre="";
+			for(byte i=0;i<args.length;i++) {
+				if(i==0) {
+					nombre=args[i];
+				}else {
+					Ventana ventana=new Ventana(nombre,args[i]);	
+				}
+			}
+		}else {
+			Ventana ventana=new Ventana("","");	
 
-//			Portero pt=new Portero(Persona.generarNombresAleatorios(),Persona.apellidosAleatorios(),Persona.generarNacionalidades());
-//			System.out.println(pt.getValoracion());
-//			System.out.println(pt.getPrecio());
-//			System.out.println(pt);
-		
-
-//			Entrenador klopp=new Entrenador(Persona.generarNombresAleatorios(),Persona.apellidosAleatorios(),Persona.generarNacionalidades());
-			//System.out.println(ancelotti);
-						
-//			ArrayList<Jugador> jugadores= new ArrayList<Jugador>();
-//			jugadores.add(j1);
-//			jugadores.add(j2);
-//			jugadores.add(j3);
-//			jugadores.add(j4);
-//			jugadores.add(pt);
-
-//			Equipo realMadrid=new Equipo("Real Madrid",500000f,Equipo.generarEquipo(ancelotti),ancelotti);
-//			System.out.println(realMadrid);
-//			Equipo liverpool=new Equipo("Liverpool",750000f,Equipo.generarEquipo(klopp),klopp);
-			
-//			Partido finalUCL=new Partido(realMadrid,liverpool);
-//			System.out.println(finalUCL);
-			
-		
-		Ventana ventana=new Ventana();
-		
-//		Equipo equipoUsuario=new Equipo();
-//	try {
-//		equipoUsuario=new Equipo("mImiI FC",450000,new Entrenador(Persona.generarNombresAleatorios(),Persona.apellidosAleatorios(),Persona.generarNacionalidades()));
-//		Torneo.jugarTorneo(equipoUsuario);
-//	} catch (SQLException e) {
-//		// TODO Auto-generated catch block
-//		e.printStackTrace();
-//	}
-
-		
-		
-		
-		
-		//La documentacion de todo las variables para que sirven,funciones,clases
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-
-		
-		
+		}
 		
 		
 		

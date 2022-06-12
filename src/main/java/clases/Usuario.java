@@ -4,8 +4,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import excepciones.contraseñaErroneaException;
-import excepciones.usuarioNoValidoException;
+import excepciones.ContraseñaErroneaException;
+import excepciones.NombreValidoException;
+import excepciones.UsuarioNoValidoException;
+import excepciones.apellidoNoValidoException;
+import excepciones.emailNoValidoException;
+import excepciones.passNoValidoException;
 import utils.ConexionBD;
 /**
  *  Clase que representa al usuario que accede al programa
@@ -31,14 +35,29 @@ public class Usuario extends ElementoConNombre{
 	 * @param email email del usuario
 	 * @param pass contraseña del usuario
 	 * @throws SQLException
+	 * @throws NombreValidoException 
+	 * @throws apellidoNoValidoException 
+	 * @throws passNoValidoException 
+	 * @throws excepciones.emailNoValidoException 
 	 */
-	public Usuario(String nombre, String apellido1, String apellido2, String email, String pass) throws SQLException {
+	public Usuario(String nombre, String apellido1, String apellido2, String email, String pass) throws SQLException, NombreValidoException, apellidoNoValidoException, passNoValidoException, excepciones.emailNoValidoException {
 		super(nombre);
-		
+		if(apellidoNoValido(apellido1)) {
+			throw new apellidoNoValidoException("El primer apellido no puede estar vacío ni contener letras");
+		}
+		if(apellidoNoValido(apellido2)) {
+			throw new apellidoNoValidoException("El segundo apellido no puede estar vacío ni contener letras");
+		}
+		if(passNoValido(apellido1)) {
+			throw new passNoValidoException("La contraseña no puede estar vacía");
+		}
+		if(emailNoValido(apellido1)) {
+			throw new emailNoValidoException("El email no puede estar vacío");
+		}
+		this.setNombre(nombre);
 		Statement smt = ConexionBD.conectar();
 		if (smt.executeUpdate(
 				"insert into usuario values('" + nombre + "','" + apellido1 + "','" + apellido2 + "','" + email +"','" +pass+"')") > 0) {
-			
 			this.apellido1=apellido1;
 			this.apellido2=apellido2;
 			this.email=email;
@@ -58,11 +77,13 @@ public class Usuario extends ElementoConNombre{
 	 * @param email email del usuario
 	 * @param pass contraseña del usuario
 	 * @throws SQLException
-	 * @throws contraseñaErroneaException
-	 * @throws usuarioNoValidoException
+	 * @throws ContraseñaErroneaException
+	 * @throws UsuarioNoValidoException
+	 * @throws NombreValidoException 
 	 */
-	public Usuario(String email, String pass) throws SQLException, contraseñaErroneaException, usuarioNoValidoException {
+	public Usuario(String email, String pass) throws SQLException, ContraseñaErroneaException, UsuarioNoValidoException, NombreValidoException {
 		super();
+		
 		Statement smt = ConexionBD.conectar();
 		ResultSet cursor=smt.executeQuery("select * from usuario where email='"+ email+"'");
 		
@@ -70,7 +91,7 @@ public class Usuario extends ElementoConNombre{
 			this.pass = cursor.getString("pass");
 			if(!(this.pass.toLowerCase().equals(pass))) {
 				ConexionBD.desconectar();
-				throw new contraseñaErroneaException("La contraseña no es correcta");
+				throw new ContraseñaErroneaException("La contraseña no es correcta");
 			}
 			this.pass=pass;
 			ResultSet cursor2 = smt.executeQuery("select nombre,apellido1,apellido2,email,pass from usuario where email='"+email+"'");
@@ -84,12 +105,26 @@ public class Usuario extends ElementoConNombre{
 		} else {
 			
 			ConexionBD.desconectar();
-			throw new usuarioNoValidoException("El email no es correcto");
+			throw new UsuarioNoValidoException("El email no es correcto");
 		}
 	ConexionBD.desconectar();
 		
 	}
 
+	/**
+	 * protección para que el apellido no esté vacío ni contenga números
+	 * @param apellido apellido del usuario
+	 * @return true si el apellido está vacío o contiene números y false si el apellido no está vacío y no contiene números
+	 */
+	protected static boolean apellidoNoValido(String apellido) {
+		if(apellido.contains("1")||apellido.contains("2")||apellido.contains("3")||apellido.contains("4")||apellido.contains("5")||apellido.contains("6")||apellido.contains("7")||apellido.contains("8")||apellido.contains("9")||apellido.contains("0")||apellido.isBlank()) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
+	
 	/**
 	 * Getter de apellido1
 	 * @return el primer apellido del usuario
@@ -99,12 +134,15 @@ public class Usuario extends ElementoConNombre{
 	}
 
 	/**
-	 * Setter de apellido1, se lanzará una excepción si a la hora de cambiar el primer apellido de un usuario existente no encuentra a dicho usuario mediante su clave primaria
+	 * Setter de apellido1, se lanzará una excepción si a la hora de cambiar el primer apellido de un usuario existente no encuentra a dicho usuario mediante su clave primaria o si el primer apellido contiene números o esta vacío
 	 * @param apellido1 Primer apellido del usuario
 	 * @throws SQLException
+	 * @throws apellidoNoValidoException 
 	 */
-	public void setApellido1(String apellido1) throws SQLException {
-		
+	public void setApellido1(String apellido1) throws SQLException, apellidoNoValidoException {
+		if(apellidoNoValido(apellido1)) {
+			throw new apellidoNoValidoException("El apellido no puede estar vacío ni contener letras");
+		}
 		Statement smt = ConexionBD.conectar();
 		if (smt.executeUpdate("update usuario set apellido1='" + apellido1 + "' where email='" + this.email + "'") > 0) {
 			this.apellido1 = apellido1;
@@ -140,6 +178,15 @@ public class Usuario extends ElementoConNombre{
 	}
 
 	/**
+	 * protección para que la contraseña no esté vacía
+	 * @param pass contraseña del usuario
+	 * @return true si el pass está vacío y false si el pass no está vacío
+	 */
+	protected static boolean passNoValido(String pass) {
+		return pass.isBlank();
+	}
+	
+	/**
 	 * Getter de pass
 	 * @return la contraseña del usuario
 	 */
@@ -151,8 +198,12 @@ public class Usuario extends ElementoConNombre{
 	 * Setter de pass, se lanzará una excepción si a la hora de cambiar la contraseña de un usuario existente no encuentra a dicho usuario mediante su clave primaria
 	 * @param pass la contraseña del usuario
 	 * @throws SQLException
+	 * @throws passNoValidoException 
 	 */
-	public void setPass(String pass) throws SQLException {
+	public void setPass(String pass) throws SQLException, passNoValidoException {
+		if(passNoValido(apellido1)) {
+			throw new passNoValidoException("La contraseña no puede estar vacía");
+		}
 		Statement smt = ConexionBD.conectar();
 		if (smt.executeUpdate("update usuario set pass='" + pass + "' where email='" + this.email + "'") > 0) {
 			this.pass = pass;
@@ -163,6 +214,15 @@ public class Usuario extends ElementoConNombre{
 		ConexionBD.desconectar();
 	}
 
+	/**
+	 * protección para que el email no esté vacío
+	 * @param email email del usuario
+	 * @return true si el email está vacío y false si el email no está vacío
+	 */
+	protected static boolean emailNoValido(String email) {
+		return email.isBlank();
+	}
+	
 	/**
 	 * Getter de email
 	 * @return el email del usuario
@@ -175,8 +235,12 @@ public class Usuario extends ElementoConNombre{
 	 * Setter de email, se lanzará una excepción si a la hora de cambiar el email de un usuario existente no encuentra a dicho usuario mediante su clave primaria
 	 * @param email el email del usuario
 	 * @throws SQLException
+	 * @throws emailNoValidoException 
 	 */
-	public void setEmail(String email) throws SQLException {
+	public void setEmail(String email) throws SQLException, emailNoValidoException {
+		if(emailNoValido(apellido1)) {
+			throw new emailNoValidoException("El email no puede estar vacío");
+		}
 		Statement smt = ConexionBD.conectar();
 		if (smt.executeUpdate("update usuarios set email='" + email + "' where email='" + this.email + "'") > 0) {
 			this.email = email;

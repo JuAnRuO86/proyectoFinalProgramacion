@@ -3,6 +3,7 @@ package clases;
 import java.util.Random;
 
 import enums.Posicion;
+import excepciones.NombreValidoException;
 /**
  * Clase que indicará ser jugador y la posición del mismo
  * @author juaan
@@ -13,8 +14,9 @@ public class Jugador extends Persona{
 	protected Posicion posicion;
 	/**
 	 * Constructor vacío para llamarlo en las subclases  
+	 * @throws NombreValidoException 
 	 */
-	public Jugador() {
+	public Jugador() throws NombreValidoException {
 		super();
 	}
 	/**

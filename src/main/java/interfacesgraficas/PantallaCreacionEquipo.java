@@ -2,6 +2,7 @@ package interfacesgraficas;
 
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -17,6 +18,8 @@ import clases.Equipo;
 import clases.Jugador;
 import clases.Persona;
 import enums.Posicion;
+import excepciones.NombreValidoException;
+import excepciones.PresupuestoInvalidoException;
 
 import java.awt.Font;
 import javax.swing.JButton;
@@ -28,11 +31,21 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.TreeMap;
-
+/**
+ * Clase que hereda de JPanel, y que contendrá las funcionalidades para crear el equipo del usuario en el programa.
+ * @author juaan
+ *
+ */
 public class PantallaCreacionEquipo extends JPanel {
+	/** el campo donde se escribirá el nombre del equipo del usuario **/	
 	private JTextField campoNombre;
+	/** la ventana principal **/
 	private Ventana ventana;
-
+	
+	/**
+	 * Constructor de PantallaCreacionEquipo que contendrá distintos campos, botones y etiquetas
+	 * @param v
+	 */	
 	public PantallaCreacionEquipo(Ventana v) {
 		
 		this.ventana=v;
@@ -105,15 +118,18 @@ public class PantallaCreacionEquipo extends JPanel {
 				}else if(boton5M.isSelected()) {
 					presupuesto=5000000;
 				}
+				ventana.suplentes=new ArrayList<Jugador>();
 				try {
 					ventana.equipoUsuario=new Equipo(nombreEquipo,presupuesto,new Entrenador(Persona.generarNombresAleatorios(),Persona.apellidosAleatorios(),Persona.generarNacionalidades()));
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
+					ventana.irAPantalla("menu");
+				} catch (SQLException | PresupuestoInvalidoException e1) {
+					JOptionPane.showMessageDialog(ventana,e1.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
+					e1.printStackTrace();
+				} catch (NombreValidoException e1) {
+					JOptionPane.showMessageDialog(ventana,e1.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
 					e1.printStackTrace();
 				}
-				ventana.suplentes=new ArrayList<Jugador>();
-//				ventana.equipoUsuario.setSuplente(ventana.suplentes);
-				ventana.irAPantalla("menu");
+				
 			}
 		});
 	}

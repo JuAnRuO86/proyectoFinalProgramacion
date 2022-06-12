@@ -8,9 +8,16 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
 import javax.swing.border.MatteBorder;
-
+/**
+ * Clase que determina la apariencia del boton 
+ * @author juaan
+ *
+ */
 public class BotonColor extends JButton {
-	
+	/**
+	 * Constructor que define la apariencia tanto cuando el ratón pasa por encima del botón como cuando sale del espacio que ocupa el botón
+	 * @param s
+	 */
 	public BotonColor(String s) {
 		super(s);
 		estilosDefault();
@@ -29,7 +36,9 @@ public class BotonColor extends JButton {
 			}
 		});
 	}
-
+	/**
+	 * Función que determina la apariencia por defecto del botón
+	 */
 	private void estilosDefault() {
 		this.setForeground(Color.WHITE);
 		this.setBackground(Color.DARK_GRAY);

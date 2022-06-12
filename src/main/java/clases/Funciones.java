@@ -6,35 +6,24 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Random;
 
+import excepciones.NombreValidoException;
+import excepciones.PresupuestoInvalidoException;
 import utils.ConexionBD;
-
+/**
+ * Función que contendrá todas las funciones necesarias para el desarrollo del programa
+ * @author juaan
+ *
+ */
 public class Funciones {
-
-	public static ArrayList<Equipo> getEquipos(){
-		ArrayList<Equipo> ret=new ArrayList<Equipo>();
-
-		Statement smt=ConexionBD.conectar();
-
-		try {
-			ResultSet cursor=smt.executeQuery("select * from equipo");
-			while(cursor.next()) {
-				Equipo e=new Equipo();
-				e.nombre=cursor.getString("nombre");
-				e.presupuesto=cursor.getInt("presupuesto");
-				e.valoracion=cursor.getShort("valoracion");
-				ret.add(e);
-			}
-				
-		} catch (SQLException ex) {
-			ex.printStackTrace();
-		}
-		
-		ConexionBD.desconectar();
-		
-		
-		return ret;
-	}
-	public static ArrayList<Equipo> generarEquipos(Equipo equipoUsuario) throws SQLException{
+	/**
+	 * Función que generará 7 equipos al completo de manera aleatoria y el octavo será el equipo del usuario que se le pasará por argumentos
+	 * @param equipoUsuario el equipo del usuario
+	 * @return conjunto de 8 equipos
+	 * @throws SQLException
+	 * @throws NombreValidoException
+	 * @throws PresupuestoInvalidoException
+	 */
+	public static ArrayList<Equipo> generarEquipos(Equipo equipoUsuario) throws SQLException, NombreValidoException, PresupuestoInvalidoException{
 		Random r=new Random();
 		Entrenador[] entrenadores=new Entrenador[7];
 		for(byte i=0;i<7;i++) {
@@ -54,8 +43,14 @@ public class Funciones {
 		equipos.add(equipoUsuario);
 		return equipos;
 	}
-		
-	public static ArrayList<Partido> getPartidos(ArrayList<Equipo> equipos) throws SQLException{
+	/**
+	 * Función que pasandole por argumentos los 8 equipos, creará las 3 fases y llamando a otras funciones complementarias jugará esas fases con los equipos
+	 * @param equipos los 8 equipos que jugarán las fases
+	 * @return los partidos de todas las fases ya jugadas
+	 * @throws SQLException
+	 * @throws NombreValidoException
+	 */
+	public static ArrayList<Partido> getPartidos(ArrayList<Equipo> equipos) throws SQLException, NombreValidoException{
 		ArrayList<Partido> ret=new ArrayList<Partido>();
 
 		Fase cuartosDeFinal=new Fase("cuartos");
@@ -79,7 +74,13 @@ public class Funciones {
 
 		return ret;
 	}
-
+	/**
+	 * Función que se le pasará por argumentos los equipos del torneo y la fase que jugarán, irá eligiendo dos equipos que se irán enfrentando y de ese enfrentamiento saldrá el ganador 
+	 * @param equipos los 8 equipos del torneo
+	 * @param fase la fase que se jugará
+	 * @return los partidos jugados en la fase que se le indique por argumentos
+	 * @throws SQLException
+	 */
 	public static Partido[] jugarFase(ArrayList<Equipo> equipos,Fase fase) throws SQLException{
 		Partido ret=new Partido();
 		Partido[] partidos=new Partido[0];
@@ -141,11 +142,8 @@ public class Funciones {
 					//Aqui no deberia entrar nunca porque la consulta siempre va a ser correcta
 					ex.printStackTrace();
 				}
-				
 				ConexionBD.desconectar();
-			
 			}
-
 		break;
 		case "semifinales":
 			partidos=new Partido[2];
@@ -264,24 +262,20 @@ public class Funciones {
 				} catch (SQLException ex) {
 					ex.printStackTrace();
 				}
-				
 				ConexionBD.desconectar();
-			
 			}
 			break;
-		
-		
-		
-		}
-		
-		
-		
-		
+		}	
 		return partidos;
-		
 	}
-
-	public static ArrayList<Equipo> getEquiposGanadores(Fase fase) throws SQLException{
+	/**
+	 * Función que recogerá los ganadores de la fase que se le pase por argumentos
+	 * @param fase la fase del torneo
+	 * @return los equipos ganadores de la fase pasada por argumentos
+	 * @throws SQLException
+	 * @throws NombreValidoException
+	 */
+	public static ArrayList<Equipo> getEquiposGanadores(Fase fase) throws SQLException, NombreValidoException{
 				
 		String gan="";
 		ArrayList<Equipo> equipos = new ArrayList<Equipo>();
@@ -348,40 +342,26 @@ public class Funciones {
 			}
 			break;
 		}
-		
 		return equipos;
-		
 	}
 	
-	
+	/**
+	 * Función que generará 10 jugadores de campo generados aleatoriamente, éstos determinarán el mercado.
+	 * @return los jugadores de campo que aparecerán en el mercado
+	 */
 	public static ArrayList<Persona> generarMercado(){
 		ArrayList<Persona> mer=new ArrayList<Persona>();
 
 		for(byte i=0;i<10;i++) {
 			try {
 				mer.add(new JugadorDeCampo(Persona.generarNombresAleatorios(),Persona.apellidosAleatorios(),Persona.generarNacionalidades()));
-			} catch (SQLException e) {
+			} catch (SQLException | NombreValidoException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-//			if(i>=7) {
-//				try {
-//					mer.add(new Entrenador(Persona.generarNombresAleatorios(),Persona.apellidosAleatorios(),Persona.generarNacionalidades()));
-//				} catch (SQLException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
-//			}
 		}
-		
-		
-		
-		
-		
 		return mer;
 	}
-	
-	
 	
 	
 	

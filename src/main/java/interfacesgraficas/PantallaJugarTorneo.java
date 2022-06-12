@@ -12,6 +12,8 @@ import clases.Funciones;
 import clases.Partido;
 import clases.Torneo;
 import clases.Usuario;
+import excepciones.NombreValidoException;
+import excepciones.PresupuestoInvalidoException;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -30,15 +32,26 @@ import java.util.ArrayList;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
-
-public class PantallaJugarPartido extends JPanel{
-
+/**
+ * Clase que hereda de JPanel, y que contendrá las funcionalidades para jugar el torneo
+ * @author juaan
+ *
+ */
+public class PantallaJugarTorneo extends JPanel{
+	/** la ventana principal **/
 	private Ventana ventana;
+	/** la pantalla anterior que es la del menu **/
 	private PantallaMenu pantallaMenu;
+	/** el torneo **/
 	private Torneo torneo;
+	/** determina el clip de audio que sonará al iniciar la pantalla **/
 	protected Clip clip;
-
-	public PantallaJugarPartido(Ventana v,final Clip cl) {
+	
+	/**
+	 * Constructor de PantallaJugarPartido que contendrá una lista, etiquetas y botones con el cual uno de ellos será para empezar el torneo
+	 * @param v la ventana principal
+	 */
+	public PantallaJugarTorneo(Ventana v,final Clip cl) {
 		try {
 			cl.stop();
 			AudioInputStream reproductor = AudioSystem.getAudioInputStream(new File("./musica/UEFA Champions League Official Theme Song.wav"));
@@ -80,7 +93,7 @@ public class PantallaJugarPartido extends JPanel{
 		add(etiquetaAtras);
 		
 		JLabel lblNewLabel = new JLabel("New label");
-		lblNewLabel.setIcon(new ImageIcon(PantallaJugarPartido.class.getResource("/imag/FondoJugarTorneo.png")));
+		lblNewLabel.setIcon(new ImageIcon(PantallaJugarTorneo.class.getResource("/imag/FondoJugarTorneo.png")));
 		lblNewLabel.setBounds(0, 0, 850, 400);
 		add(lblNewLabel);
 		
@@ -100,7 +113,7 @@ public class PantallaJugarPartido extends JPanel{
 						}
 					});
 				JOptionPane.showMessageDialog(pantallaMenu, "El ganador es: "+todosPartidos.get(todosPartidos.size()-1).getGanador().getNombre(),"Torneo acabado con éxito",JOptionPane.INFORMATION_MESSAGE);
-				} catch (SQLException e1) {
+				} catch (SQLException | NombreValidoException | PresupuestoInvalidoException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}

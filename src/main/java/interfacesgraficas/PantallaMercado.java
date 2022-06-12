@@ -14,17 +14,26 @@ import clases.Funciones;
 import clases.Jugador;
 import clases.Persona;
 import clases.Usuario;
+import excepciones.PresupuestoInvalidoException;
+
 import javax.swing.JScrollPane;
 import java.awt.BorderLayout;
 import javax.swing.SwingConstants;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.ImageIcon;
-
+/**
+ * Clase que hereda de JPanel, y que contendrá las funcionalidades para ver e interactuar con el mercado de jugadores
+ * @author juaan
+ *
+ */
 public class PantallaMercado extends JPanel{
-	
+	/** la ventana principal **/
 	private Ventana ventana;
-	
+	/**
+	 * Constructor de PantallaMercado que contendrá una lista con los jugadores a comprar, botones y etiqueta
+	 * @param v la ventana principal
+	 */
 	public PantallaMercado(Ventana v) {
 		
 		this.ventana=v;
@@ -62,7 +71,6 @@ public class PantallaMercado extends JPanel{
 
 		
 		JButton botonComprar = new JButton("Comprar");
-//		final ArrayList<Persona> suplentes=new ArrayList<Persona>();
 		botonComprar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -70,7 +78,11 @@ public class PantallaMercado extends JPanel{
 				if(seleccionado!=null) {
 					if(ventana.equipoUsuario.getPresupuesto()>=seleccionado.getPrecio()) {
 						ventana.suplentes.add(seleccionado);
-						ventana.equipoUsuario.setPresupuesto(ventana.equipoUsuario.getPresupuesto()-seleccionado.getPrecio());
+						try {
+							ventana.equipoUsuario.setPresupuesto(ventana.equipoUsuario.getPresupuesto()-seleccionado.getPrecio());
+						} catch (PresupuestoInvalidoException e1) {
+							e1.printStackTrace();
+						}
 						etiquetaPresupuestoActual.setText(String.valueOf(""+(ventana.equipoUsuario.getPresupuesto())));
 						mercado.remove(seleccionado);
 						listaMercado.repaint();					

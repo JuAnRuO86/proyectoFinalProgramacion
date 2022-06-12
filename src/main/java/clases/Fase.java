@@ -3,6 +3,7 @@ package clases;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import excepciones.NombreValidoException;
 import utils.ConexionBD;
 
 /**
@@ -17,17 +18,20 @@ public class Fase extends ElementoConNombre{
 
 	/**
 	 * Constructor vacío para llamarlo en las subclases 
+	 * @throws NombreValidoException 
 	 */
-	public Fase() {
+	public Fase() throws NombreValidoException {
 		super();
 	}
 	/**
 	 * Constructor de fase que creará la fase con el nombre que se le pase por argumentos
 	 * @param nombre
 	 * @throws SQLException
+	 * @throws NombreValidoException 
 	 */
-	public Fase(String nombre) throws SQLException {
+	public Fase(String nombre) throws SQLException, NombreValidoException {
 		super();
+		
 		Statement smt = ConexionBD.conectar();
 		if (smt.executeUpdate(
 				"insert into fase (nombre,nombreTorneo) values('" + nombre +"','Uefa Champions League')") > 0) {

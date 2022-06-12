@@ -13,6 +13,10 @@ import javax.swing.JTextField;
 
 import clases.Usuario;
 import componentes.visuales.BotonColor;
+import excepciones.NombreValidoException;
+import excepciones.apellidoNoValidoException;
+import excepciones.emailNoValidoException;
+import excepciones.passNoValidoException;
 
 import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
@@ -25,15 +29,29 @@ import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
-
+/**
+ * Clase que hereda de JPanel, y que contendrá las funcionalidades para registrarse con un usuario en el programa.
+ * @author juaan
+ *
+ */
 public class PantallaRegistro extends JPanel {
+	/** la ventana principal **/
 	private Ventana ventana;
+	/** el campo donde se escribirá el email del usuario **/
 	private JTextField campoEmail;
+	/** el campo donde se escribirá la contraseña del usuario **/	
 	private JPasswordField campoPass;
+	/** el campo donde se escribirá el nombre del usuario **/	
 	private JTextField campoNombre;
+	/** el campo donde se escribirá el primer apellidos del usuario **/	
 	private JTextField campoApellido1;
+	/** el campo donde se escribirá el segundo apellido del usuario **/	
 	private JTextField campoApellido2;
-		
+	
+	/**
+	 * Constructor de PantallaRegistro que contendrá distintos campos, botones y etiquetas
+	 * @param v la ventana principal
+	 */	
 	public PantallaRegistro(Ventana v) {
 		setLayout(null);
 		
@@ -135,13 +153,21 @@ public class PantallaRegistro extends JPanel {
 				String pass = new String(campoPass.getPassword());
 				String apellido1 = campoApellido1.getText();
 				String apellido2 = campoApellido2.getText();
-				JOptionPane.showMessageDialog(ventana,"Registro Completo","Registro",JOptionPane.PLAIN_MESSAGE );
-				ventana.irAPantalla("login");
-			
 				try {
 					new Usuario(nombreUsuario, apellido1, apellido2, email, pass);
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
+					JOptionPane.showMessageDialog(ventana,"Registro Completo","Registro",JOptionPane.PLAIN_MESSAGE );
+					ventana.irAPantalla("login");
+				} catch (SQLException | NombreValidoException e1) {
+					JOptionPane.showMessageDialog(ventana,e1.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
+					e1.printStackTrace();
+				} catch (apellidoNoValidoException e1) {
+					JOptionPane.showMessageDialog(ventana,e1.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
+					e1.printStackTrace();
+				} catch (passNoValidoException e1) {
+					JOptionPane.showMessageDialog(ventana,e1.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
+					e1.printStackTrace();
+				} catch (emailNoValidoException e1) {
+					JOptionPane.showMessageDialog(ventana,e1.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
 					e1.printStackTrace();
 				}
 			}

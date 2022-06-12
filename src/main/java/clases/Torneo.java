@@ -5,6 +5,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Random;
 
+import excepciones.NombreValidoException;
+import excepciones.PresupuestoInvalidoException;
 import utils.ConexionBD;
 
 /**
@@ -20,8 +22,9 @@ public class Torneo extends ElementoConNombre{
 	/**
 	 * Constructor de torneo el cual creará automáticamente el torneo y lo insertará en la base de datos
 	 * @throws SQLException
+	 * @throws NombreValidoException 
 	 */
-	public Torneo() throws SQLException {
+	public Torneo() throws SQLException, NombreValidoException {
 		super();
 		Statement smt = ConexionBD.conectar();
 		if (smt.executeUpdate(
@@ -57,8 +60,10 @@ public class Torneo extends ElementoConNombre{
 	 * @param equipoUsuario es el equipo que representará al usuario y creado por el mismo
 	 * @return los partidos que se han jugado en el torneo
 	 * @throws SQLException
+	 * @throws NombreValidoException 
+	 * @throws PresupuestoInvalidoException 
 	 */
-	public static ArrayList<Partido> jugarTorneo(Equipo equipoUsuario) throws SQLException {
+	public static ArrayList<Partido> jugarTorneo(Equipo equipoUsuario) throws SQLException, NombreValidoException, PresupuestoInvalidoException {
 		Torneo UCL=new Torneo();
 		ArrayList<Equipo> equipos=Funciones.generarEquipos(equipoUsuario);
 		ArrayList<Partido> partidos=Funciones.getPartidos(equipos);

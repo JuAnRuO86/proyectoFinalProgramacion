@@ -24,51 +24,55 @@ import clases.Jugador;
 import clases.Persona;
 import clases.Usuario;
 import enums.Posicion;
-
+/**
+ * Clase que hereda de JFrame, y que contendrá a las pantallas (Herederas de JPanel) del programa.
+ * @author juaan
+ *
+ */
 public class Ventana extends JFrame{
-	/**
-	 * la clave va a ser un nombre que le ponemos a la pantalla y el valor la pantalla con ese nombre
-	 */
-	//private HashMap<String, JPanel> pantallas;
-	private JPanel pantallaActual;
-	protected Usuario usuarioLogado;
-	protected Persona personaComprada;
-	protected Equipo equipoUsuario;
-	protected Fase fase;
-	protected ArrayList<Jugador> suplentes;
-	protected Clip clip;
 
-	
-	public Ventana() {
-		
+	/** determina la pantalla en la que el usuario estará **/
+	private JPanel pantallaActual;
+	/** determina el usuario ya registrado que se logea **/
+	protected Usuario usuarioLogado;
+	/** determina al equipo creado por el usuario **/
+	protected Equipo equipoUsuario;
+	/** determina a los jugadores comprados en el mercado que pasarán a ser los suplentes del equipo del usuario **/
+	protected ArrayList<Jugador> suplentes;
+	/** determina el clip de audio que sonará al iniciar el programa **/
+	protected Clip clip;
+	String email;
+	String pass;
+	/**
+	 * Constructor de Ventana, que inicializa su tamaño, título e icono, y otras propiedades. Se le pasa por argumentos el email y la contraseña de un usuario existente o String vacios para registrarse y logear manualmente
+	 */
+	public Ventana(String email,String passUsuario) {
+		this.email=email;
+		this.pass=passUsuario;
 		try {
 			AudioInputStream reproductor = AudioSystem.getAudioInputStream(new File("./musica/himnoMadrid.wav"));
 			this.clip = AudioSystem.getClip();
 			clip.open(reproductor);
 			clip.start();
-			}catch (UnsupportedAudioFileException | LineUnavailableException | IOException e) {
-				
-			}
+		}catch (UnsupportedAudioFileException | LineUnavailableException | IOException e) {
+			e.printStackTrace();
+		}
 		this.setSize(850,430);
-		this.setLocationRelativeTo(null);//Poner justo dps de determinar el tamaño, posiciona la ventana céntrica
-		
-		
-//		this.setUndecorated(true); //Como si fuera el f11 sin bordes la ventana
-		
+		this.setLocationRelativeTo(null);
 		this.setTitle("Uefa Champions League");
-		this.setIconImage(new ImageIcon("./IconoPrincipal.png").getImage()); //ImageIcon recibe una ruta
+		this.setIconImage(new ImageIcon("./IconoPrincipal.png").getImage());
 		this.setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR));
-		//this.setAlwaysOnTop(true); //Para que no puedas poner nada por encima de la ventana, ninguna otra ventana o lo que seas
-		this.setDefaultCloseOperation(EXIT_ON_CLOSE); //Cerrará el programa cuando cerremos la ventana
-//		this.setEnabled(false); //No se puede pinchar ni hacer nada
-		this.setResizable(false); // No podrás cambiar el tamaño mas de lo determinado
-		
+		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		this.setResizable(false); 
 		this.pantallaActual=new PantallaLogin(this);
-		this.setContentPane(this.pantallaActual);	//Siempre antes del setVisible, nos pone una nueva ventana de login
-		this.setVisible(true); //Tiene que ir al final para que se apliquen todos los cambios y se vea
+		this.setContentPane(this.pantallaActual);	
+		this.setVisible(true); 
 	}
 	
-	
+	/**
+	 * Función que se encarga de cambiar entre las distintas pantallas
+	 * @param nombrePantalla el nombre de la pantalla que se abrirá
+	 */
 	public void irAPantalla(String nombrePantalla) {
 		this.pantallaActual.setVisible(false);
 		this.pantallaActual=null;
@@ -83,7 +87,7 @@ public class Ventana extends JFrame{
 			this.pantallaActual=new PantallaMenu(this);
 			break;
 		case "jugar":
-			this.pantallaActual=new PantallaJugarPartido(this,clip);
+			this.pantallaActual=new PantallaJugarTorneo(this,clip);
 			break;
 		case "mercado":
 			this.pantallaActual=new PantallaMercado(this);

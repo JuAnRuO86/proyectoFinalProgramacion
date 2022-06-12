@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import enums.Posicion;
+import excepciones.NombreValidoException;
 import utils.ConexionBD;
 /**
  * Clase que por las instancias del mismo determinará a un portero
@@ -25,8 +26,9 @@ public class Portero extends Jugador{
 	 * @param apellidos los apellidos del portero
 	 * @param nacionalidad la nacionalidad del portero
 	 * @throws SQLException
+	 * @throws NombreValidoException 
 	 */
-	public Portero(String nombre, String apellidos, String nacionalidad) throws SQLException {
+	public Portero(String nombre, String apellidos, String nacionalidad) throws SQLException, NombreValidoException {
 		super();
 		this.setPosicion(Posicion.PORTERO);
 		this.setEstirada(estirada);

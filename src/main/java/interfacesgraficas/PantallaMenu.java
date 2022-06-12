@@ -26,15 +26,20 @@ import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
+/**
+ * Clase que hereda de JPanel, y que contendrá las funcionalidades de un menu donde puedes acceder a tres nuevas pantallas.
+ * @author juaan
+ *
+ */
 public class PantallaMenu extends JPanel{
-
+	/** la ventana principal **/
 	private	Ventana ventana;
-	private JTextField TituloMenu;
-	
+
+	/**
+	 * Constructor de PantallaMenu que contendrá distintos campos, etiquetas y botones con los cuales accederás a nuevas pantallas
+	 * @param v la ventana principal
+	 */
 	public PantallaMenu(Ventana v) {
-		
-		
 		this.ventana=v;
 		setLayout(null);
 		
@@ -48,7 +53,7 @@ public class PantallaMenu extends JPanel{
 		add(panel);
 		panel.setLayout(null);
 		
-		JButton botonJugar = new JButton("Jugar Partido");
+		JButton botonJugar = new JButton("Jugar Torneo");
 		
 		botonJugar.setBounds(23, 24, 140, 40);
 		botonJugar.setHorizontalAlignment(SwingConstants.LEFT);
@@ -76,6 +81,8 @@ public class PantallaMenu extends JPanel{
 		panel_1.add(botonAlineacion);
 		
 		JLabel fondoAlineacion = new JLabel("New label");
+		fondoAlineacion.setForeground(Color.WHITE);
+		fondoAlineacion.setBackground(Color.BLACK);
 		fondoAlineacion.setIcon(new ImageIcon(PantallaMenu.class.getResource("/imag/menuAlineacion.png")));
 		fondoAlineacion.setBounds(0, 0, 440, 113);
 		panel_1.add(fondoAlineacion);
@@ -110,20 +117,18 @@ public class PantallaMenu extends JPanel{
 		fondoMercado.setBounds(0, 0, 440, 105);
 		panel_1_1.add(fondoMercado);
 		
-		TituloMenu = new JTextField();
-		TituloMenu.setFont(new Font("Verdana", Font.ITALIC, 58));
-		TituloMenu.setBackground(new Color(0, 0, 0));
-		TituloMenu.setForeground(new Color(255, 255, 255));
-		TituloMenu.setHorizontalAlignment(SwingConstants.CENTER);
-		TituloMenu.setText("M E N \u00DA");
-		TituloMenu.setBounds(0, 0, 600, 89);
-		add(TituloMenu);
-		TituloMenu.setColumns(10);
-		
 		JLabel lblNewLabel = new JLabel("New label");
 		lblNewLabel.setIcon(new ImageIcon(PantallaMenu.class.getResource("/imag/UFL.jpg")));
 		lblNewLabel.setBounds(599, 0, 251, 400);
 		add(lblNewLabel);
+		
+		JLabel etiquetaMenu = new JLabel("M  E  N  U");
+		etiquetaMenu.setBackground(Color.WHITE);
+		etiquetaMenu.setForeground(Color.BLACK);
+		etiquetaMenu.setHorizontalAlignment(SwingConstants.CENTER);
+		etiquetaMenu.setFont(new Font("Serif", Font.BOLD | Font.ITALIC, 59));
+		etiquetaMenu.setBounds(0, 0, 599, 89);
+		add(etiquetaMenu);
 		
 		
 		botonJugar.addMouseListener(new MouseAdapter() {

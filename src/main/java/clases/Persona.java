@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Random;
 
+import excepciones.NombreValidoException;
 import utils.ConexionBD;
 
 /**
@@ -23,8 +24,9 @@ public class Persona extends ElementoConNombre{
 	protected int precio;
 	/**
 	 * Constructor vacío para llamarlo en las subclases 
+	 * @throws NombreValidoException 
 	 */
-	public Persona() {
+	public Persona() throws NombreValidoException {
 		super();
 	}
 	/**

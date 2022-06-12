@@ -5,6 +5,7 @@ import java.sql.Statement;
 import java.util.Random;
 
 import enums.Posicion;
+import excepciones.NombreValidoException;
 import utils.ConexionBD;
 /**
  * Clase que por las instancias del mismo determinará a un jugador de campo
@@ -26,8 +27,9 @@ public class JugadorDeCampo extends Jugador {
 	 * @param apellidos los apellidos del jugador de campo
 	 * @param nacionalidad la nacionalidad del jugador de campo
 	 * @throws SQLException
+	 * @throws NombreValidoException 
 	 */
-	public JugadorDeCampo(String nombre, String apellidos, String nacionalidad) throws SQLException {
+	public JugadorDeCampo(String nombre, String apellidos, String nacionalidad) throws SQLException, NombreValidoException {
 		super();
 		this.setPosicion(posicionAleatoriaJugador());
 		this.setRitmo(ritmo);
@@ -59,8 +61,9 @@ public class JugadorDeCampo extends Jugador {
 	 * @param nacionalidad nacionalidad del jugador de campo
 	 * @param posicion posicion del jugador de campo
 	 * @throws SQLException
+	 * @throws NombreValidoException 
 	 */
-	public JugadorDeCampo(String nombre, String apellidos, String nacionalidad,Posicion posicion) throws SQLException {
+	public JugadorDeCampo(String nombre, String apellidos, String nacionalidad,Posicion posicion) throws SQLException, NombreValidoException {
 		super();
 		
 		this.setPosicion(posicion);
